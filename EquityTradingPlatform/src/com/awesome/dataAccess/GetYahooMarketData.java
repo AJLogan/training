@@ -74,7 +74,9 @@ public class GetYahooMarketData {
 			}
 			i++;
 		}
-		
+		// check against previous quote
+		// write to db
+
 		return quotes;
 	}
 

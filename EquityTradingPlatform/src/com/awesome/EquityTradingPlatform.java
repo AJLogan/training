@@ -4,56 +4,48 @@
 package com.awesome;
 
 import java.util.Map;
-import java.util.Vector;
 
 import com.awesome.dataAccess.GetYahooMarketData;
-import com.awesome.MarketDataHandler;
 
 /**
  * @author andrew
  *
  */
 public class EquityTradingPlatform implements Runnable {
-	
+
 	public String[] symbols;
 	private GetYahooMarketData handler;
 	private Map<String, MarketDataHandler> handlerMap;
-	
-	public EquityTradingPlatform()
-	{
+
+	public EquityTradingPlatform() {
 		this.handler = new GetYahooMarketData();
 	}
-	
-	void addSymbol(String symbol)
-	{
-//		symbols.add(symbol);
+
+	void addSymbol(String symbol) {
+		// symbols.add(symbol);
 	}
 
 	@Override
 	public void run() {
-		while(true)
-		{
+		while (true) {
 			try {
-				Map<String, GetYahooMarketData.QuoteData> data =
-					handler.getQuote(symbols);
-				
-				for (Map.Entry<String, GetYahooMarketData.QuoteData> value : data.entrySet())
-				{
+				Map<String, GetYahooMarketData.QuoteData> data = handler
+						.getQuote(symbols);
+
+				for (Map.Entry<String, GetYahooMarketData.QuoteData> value : data
+						.entrySet()) {
 					String symbol = value.getKey();
 					GetYahooMarketData.QuoteData quote = value.getValue();
-					
-					if (handlerMap.containsKey(symbol))
-					{
+
+					if (handlerMap.containsKey(symbol)) {
 						MarketDataHandler strategy = handlerMap.get(symbol);
-						strategy.onMarketDataUpdate(symbol, 
-							quote.bidPrice,
-							quote.bidSize, 
-							quote.askPrice, 
-							quote.askSize);
+						
+						strategy.onMarketDataUpdate(symbol, quote.bidPrice,
+								quote.bidSize, quote.askPrice, quote.askSize);
 					}
-					}
+
 				}
-				
+
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -69,6 +61,5 @@ public class EquityTradingPlatform implements Runnable {
 
 	public static void main(String args[]) {
 		EquityTradingPlatform etp = new EquityTradingPlatform();
-		etp.start();
 	}
 }

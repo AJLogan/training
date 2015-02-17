@@ -60,7 +60,9 @@
 
 				<div class="row">
 					<div class="col-lg-12">
-						<%@include file="_areaChartPanel.jsp"%>
+						<%-- <%@include file="_areaChartPanel.jsp"%> --%>
+						<%@include file="_tradePanel.jsp"%>
+						<%@include file="_quotePanel.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->
