@@ -72,6 +72,9 @@
 
 					<div class="col-lg-4">
 						<%@include file="_taskPanel.jsp"%>
+						<%@include file="_donughtChartPanel.jsp"%>
+						<%@include file="_donughtChartPanel.jsp"%>
+						<%@include file="_donughtChartPanel.jsp"%>
 					</div>
 
 					<div class="col-lg-4">
