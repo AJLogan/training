@@ -7,5 +7,5 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="index.html">SB Admin</a>
+		<a class="navbar-brand" href="index.html">Awesome ET</a>
 	</div>
