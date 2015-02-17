@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>EquityTradingPlatform</display-name>
+ 	<context-param>
+ 		<param-name>connstr</param-name>
+ 		<param-value>Servlet Context Connstr</param-value>
+ 	</context-param>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -9,4 +13,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description>Test Index Servlet</description>
+    <display-name>Index</display-name>
+    <servlet-name>Index</servlet-name>
+    <jsp-file>/Index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/Index</url-pattern>
+    <url-pattern>/Foo</url-pattern>
+  </servlet-mapping>
 </web-app>
