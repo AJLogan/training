@@ -74,6 +74,7 @@ public class GetYahooMarketData {
 			}
 			i++;
 		}
+		
 		return quotes;
 	}
 

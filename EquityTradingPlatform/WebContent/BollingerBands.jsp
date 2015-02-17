@@ -20,19 +20,18 @@
 		</tr>
 		<%
 			GetYahooMarketData yahooReader = new GetYahooMarketData();
-			String[] quotes = { "IBMD", "FB","YHOO","AAPL"};
+			String[] quotes = { "IBMD", "FB","YHOO","AAPL","VOD.L"};
 			//IBMD,"FB","YHOO","AAPL",
-			//while (true) {
-				// Get Quotes 
+		
 				Map<String, GetYahooMarketData.QuoteData> data = yahooReader
 						.getQuote(quotes);
+				
+				//enhanced for
 				for (Map.Entry<String, GetYahooMarketData.QuoteData> entry : data
 						.entrySet()) {
 					//Thread.sleep(1000);
+					
 					GetYahooMarketData.QuoteData quote = entry.getValue();
-					//               System.out.printf ("%s \t[%.2f]\n",
-					//                       entry.getKey(),
-					//                       quote.closePrice);
 					out.print("<tr>");
 					out.println("<td>" + entry.getKey() + "</td><td>"
 							+ quote.closePrice + "</td>");
