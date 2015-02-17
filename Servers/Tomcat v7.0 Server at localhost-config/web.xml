@@ -89,10 +89,6 @@
   <!--                       path that points to a location below either    -->
   <!--                       $CATALINA_BASE/conf (checked first) or         -->
   <!--                       $CATALINA_HOME/conf (checked second).[null]    -->
-  <!--                                                                      -->
-  <!--   showServerInfo      Should server information be presented in the  -->
-  <!--                       response sent to clients when directory        -->
-  <!--                       listings is enabled? [true]                    -->
 
     <servlet>
         <servlet-name>default</servlet-name>
@@ -312,8 +308,7 @@
   <!--                                                                      -->
   <!--   cgiPathPrefix        The CGI search path will start at             -->
   <!--                        webAppRootDir + File.separator + this prefix. -->
-  <!--                        If not set, then webAppRootDir is used.       -->
-  <!--                        Recommended value: WEB-INF/cgi                -->
+  <!--                        [WEB-INF/cgi]                                 -->
   <!--                                                                      -->
   <!--   debug                Debugging detail level for messages logged    -->
   <!--                        by this servlet.  [0]                         -->
