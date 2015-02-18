@@ -82,10 +82,7 @@ public class GettData {
 		}
 		// check against previous quote
 		// write to db
-		System.out.println(quotes.toString());
-
 		for (Map.Entry<String, Quote> quote : quotes.entrySet()) {
-			System.out.println("HELLO " + quote.getKey());
 			writeQuoteToDB(quote);
 		}
 		return quotes;

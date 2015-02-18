@@ -31,7 +31,7 @@
 
 						Statement st = cn.createStatement();
 						ResultSet rs = st
-								.executeQuery("select id, ticker, volume, price, dealer from trades");
+								.executeQuery("select id, ticker, volume, price, dealer from trades limit 20");
 						while (rs.next()) {
 							out.println("<tr>");
 							out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"

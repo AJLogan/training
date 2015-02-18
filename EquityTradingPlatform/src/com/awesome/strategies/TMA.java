@@ -21,13 +21,12 @@ public class TMA implements MarketDataHandler, Runnable {
 		System.out.print(symbol + " " + bidPrice + " " + bidSize + " "
 				+ askPrice + " " + askSize);
 		// TODO Auto-generated method stub
-		//true or false should be returned
-		twoPointMovingAvg();		
+		// true or false should be returned
+		twoPointMovingAvg();
 	}
-	
+
 	@Override
 	public void run() {
-		System.out.println("TMA inside Run");
 		while (true) {
 			try {
 
@@ -43,45 +42,38 @@ public class TMA implements MarketDataHandler, Runnable {
 			}
 		}
 	}
-	
+
 	public GettData yahooDat;
-	public String [] stocks = {"IBMD"};
-		
-	public boolean twoPointMovingAvg(){
-		
+	public String[] stocks = { "IBMD" };
+
+	public boolean twoPointMovingAvg() {
+
 		return true;
 	}
-	
-	public void longAverage(){
-		
+
+	public void longAverage() {
+
 		try {
-			//yahooDat.getQuote(stocks);
-			 while (true)
-		        {
-		            // Get Quotes 
-		            Map<String, Quote> data = yahooDat.getQuote(stocks);
-		            for (Map.Entry<String, GettData.Quote> entry : 
-		                 data.entrySet())
-		            {
-		            	GettData.Quote quote = entry.getValue();
-		                System.out.printf ("%s [%d x %.2f] x [%.2f x %d]\n",
-		                                   entry.getKey(),
-		                                   quote.bidSize,
-		                                   quote.bidPrice,
-		                                   quote.askPrice,
-		                                   quote.askSize);
-		            }
-		        }
+			// yahooDat.getQuote(stocks);
+			while (true) {
+				// Get Quotes
+				Map<String, Quote> data = yahooDat.getQuote(stocks);
+				for (Map.Entry<String, GettData.Quote> entry : data.entrySet()) {
+					GettData.Quote quote = entry.getValue();
+					System.out.printf("%s [%d x %.2f] x [%.2f x %d]\n",
+							entry.getKey(), quote.bidSize, quote.bidPrice,
+							quote.askPrice, quote.askSize);
+				}
+			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void shortAverage(){
-		
+
+	public void shortAverage() {
+
 	}
 
-	
 }

@@ -14,7 +14,7 @@ import com.awesome.strategies.TMA;
  */
 public class MarketDataConsumer implements Runnable {
 
-	public String[] symbols = {"AAPL"};
+	public String[] symbols = { "AAPL" };
 	private GettData handler;
 	private Map<String, MarketDataHandler> handlerMap;
 
@@ -37,28 +37,22 @@ public class MarketDataConsumer implements Runnable {
 	@Override
 	public void run() {
 
-//		handlerMap.put("YHOO", twopoint);
+		// handlerMap.put("YHOO", twopoint);
 
 		System.out.println("Running");
 		while (true) {
 			try {
 				Map<String, GettData.Quote> data = handler.getQuote(symbols);
 				for (Map.Entry<String, GettData.Quote> value : data.entrySet()) {
-					String symbol = value.getKey();
-
-					System.out.println("\n\n STOCK - " + symbol + " "
-							+ value.getValue() + "\n");
-
 					GettData.Quote quote = value.getValue();
-					System.out.println(quote.askPrice);
 
 					// THIS DOESNT CONTAIN ANYTHING YET!!!
-//					if (handlerMap.containsKey(symbol)) {
-//						MarketDataHandler strategy = handlerMap.get(symbol);
-//
-//						strategy.onMarketDataUpdate(symbol, quote.bidPrice,
-//								quote.bidSize, quote.askPrice, quote.askSize);
-//					}
+					// if (handlerMap.containsKey(symbol)) {
+					// MarketDataHandler strategy = handlerMap.get(symbol);
+					//
+					// strategy.onMarketDataUpdate(symbol, quote.bidPrice,
+					// quote.bidSize, quote.askPrice, quote.askSize);
+					// }
 
 				}
 
