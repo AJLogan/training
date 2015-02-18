@@ -4,7 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 // Get quote data for a list of symbols and returns it in a Map
 
@@ -24,6 +32,7 @@ public class GettData {
 		// Build the URL
 		StringBuilder url = new StringBuilder(
 				"http://download.finance.yahoo.com/d/quotes.csv?s=");
+		
 		for (String s : stocks)
 			url.append(s + ",");
 		url.deleteCharAt(url.length() - 1);
@@ -78,6 +87,10 @@ public class GettData {
 		// write to db
 		System.out.println(quotes.toString());
 
+		for (Map.Entry<String, Quote> quote : quotes.entrySet()) {
+			System.out.println("HELLO " + quote.getKey());
+			writeQuoteToDB(quote);
+		}
 		return quotes;
 	}
 
@@ -104,5 +117,50 @@ public class GettData {
 
 		in.close();
 		return response;
+	}
+
+	private void writeQuoteToDB(Entry<String, Quote> quote) {
+		Connection cn = null;
+		Statement st = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = DriverManager
+					.getConnection("jdbc:mysql://localhost:8889/EquityTrading?"
+							+ "user=root&password=root");
+			st = cn.createStatement();
+			System.out.println("Inserting into DB");
+			st.executeUpdate("insert into quotes(ticker, askPrice, askSize,"
+					+ "bidPrice, bidSize, closePrice, volume) values ('"
+					+ quote.getKey() + "','" + quote.getValue().askPrice
+					+ "','" + quote.getValue().askSize + "','"
+					+ quote.getValue().bidPrice + "','"
+					+ quote.getValue().bidSize + "','"
+					+ quote.getValue().closePrice + "','"
+					+ quote.getValue().volume + "')");
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				st.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

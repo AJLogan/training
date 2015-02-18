@@ -14,7 +14,7 @@ import com.awesome.strategies.TMA;
  */
 public class MarketDataConsumer implements Runnable {
 
-	public String[] symbols = { "YHOO" };
+	public String[] symbols;
 	private GettData handler;
 	private Map<String, MarketDataHandler> handlerMap;
 
@@ -24,8 +24,14 @@ public class MarketDataConsumer implements Runnable {
 		this.handler = new GettData();
 	}
 
-	void addSymbol(String symbol) {
-		// symbols.add(symbol);
+	public void addSymbol(String symbol) {
+//		symbols.add(symbol)
+	}
+
+	public void addHandler(String symbol, MarketDataHandler strategy) {
+//		Check Symbol Is currently subscribed to
+//		do with a list of handlers
+		handlerMap.put(symbol, strategy);
 	}
 
 	@Override
@@ -48,7 +54,7 @@ public class MarketDataConsumer implements Runnable {
 					GettData.Quote quote = value.getValue();
 					System.out.println(quote.askPrice);
 
-//					THIS DOESNT CONTAIN ANYTHING YET!!!
+					// THIS DOESNT CONTAIN ANYTHING YET!!!
 					if (handlerMap.containsKey(symbol)) {
 						MarketDataHandler strategy = handlerMap.get(symbol);
 

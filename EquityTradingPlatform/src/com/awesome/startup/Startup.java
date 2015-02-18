@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.awesome.feeds.MarketDataConsumer;
+import com.awesome.strategies.TMA;
 
 /**
  * Application Lifecycle Listener implementation class Startup
@@ -38,7 +39,17 @@ public class Startup implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		System.out.println("contextInitialized");
 		executor = Executors.newFixedThreadPool(10); // Max 10 threads.
-		executor.execute(new MarketDataConsumer());
+		MarketDataConsumer app = new MarketDataConsumer();
+		executor.execute(app);
+//		Startup strategies
+		TMA twoPoint = new TMA();
+		executor.execute(twoPoint);
+		app.addSymbol("YHOO");
+		app.addHandler("YHOO", twoPoint);
+		app.addSymbol("YHOO");
+		app.addHandler("AAPL", twoPoint);
+		app.addSymbol("IBM");
+		app.addHandler("IBM", twoPoint);
 	}
 
 }
