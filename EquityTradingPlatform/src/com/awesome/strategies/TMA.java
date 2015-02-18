@@ -3,6 +3,10 @@
  */
 package com.awesome.strategies;
 
+import java.util.Map;
+
+import com.awesome.dataAccess.GettData;
+import com.awesome.dataAccess.GettData.Quote;
 import com.awesome.feeds.MarketDataHandler;
 
 /**
@@ -21,32 +25,6 @@ public class TMA implements MarketDataHandler, Runnable {
 		twoPointMovingAvg();		
 	}
 	
-		
-	public boolean twoPointMovingAvg(){
-		
-		return true;
-	}
-	
-	public void longAverage(){
-		
-		try {
-			//yahooDat.getQuote(stocks);
-			
-			
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void shortAverage(){
-		
-	}
-
-
-
 	@Override
 	public void run() {
 		System.out.println("TMA inside Run");
@@ -66,6 +44,44 @@ public class TMA implements MarketDataHandler, Runnable {
 		}
 	}
 	
+	public GettData yahooDat;
+	public String [] stocks = {"IBMD"};
+		
+	public boolean twoPointMovingAvg(){
+		
+		return true;
+	}
 	
+	public void longAverage(){
+		
+		try {
+			//yahooDat.getQuote(stocks);
+			 while (true)
+		        {
+		            // Get Quotes 
+		            Map<String, Quote> data = yahooDat.getQuote(stocks);
+		            for (Map.Entry<String, GettData.Quote> entry : 
+		                 data.entrySet())
+		            {
+		            	GettData.Quote quote = entry.getValue();
+		                System.out.printf ("%s [%d x %.2f] x [%.2f x %d]\n",
+		                                   entry.getKey(),
+		                                   quote.bidSize,
+		                                   quote.bidPrice,
+		                                   quote.askPrice,
+		                                   quote.askSize);
+		            }
+		        }
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void shortAverage(){
+		
+	}
+
+	
 }
