@@ -5,4 +5,4 @@
  * @author andrew
  *
  */
-package com.awesome.feedHandler;
+package com.awesome.feeds;

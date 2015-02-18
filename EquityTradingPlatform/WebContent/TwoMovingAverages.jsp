@@ -17,15 +17,15 @@
 			<th>Ask Size</th>
 		</tr>
 		<%
-			GetYahooMarketData yahooReader = new GetYahooMarketData();
+			GettData yahooReader = new GettData();
 			String[] quotes = { "YHOO", "AAPL" };
 			//while (true) {
 				// Get Quotes
-				Map<String, GetYahooMarketData.QuoteData> data = yahooReader
+				Map<String, GettData.Quote> data = yahooReader
 						.getQuote(quotes);
-				for (Map.Entry<String, GetYahooMarketData.QuoteData> entry : data
+				for (Map.Entry<String, GettData.Quote> entry : data
 						.entrySet()) {
-					GetYahooMarketData.QuoteData quote = entry.getValue();
+					GettData.Quote quote = entry.getValue();
 					out.println("<tr>");
 					System.out.printf("%s [%dx%.2f] x [%.2fx%d]\n",
 							entry.getKey(), quote.bidSize, quote.bidPrice,

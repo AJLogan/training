@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.awesome.dataAccess.GetYahooMarketData"
+	pageEncoding="UTF-8" import="com.awesome.dataAccess.GettData"
 	import="java.util.Map" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,25 +19,25 @@
 			<th>Close Price</th>
 		</tr>
 		<%
-			GetYahooMarketData yahooReader = new GetYahooMarketData();
+			GettData yahooReader = new GettData();
 			String[] quotes = { "IBMD", "FB","YHOO","AAPL","VOD.L"};
 			//IBMD,"FB","YHOO","AAPL",
-		
-				Map<String, GetYahooMarketData.QuoteData> data = yahooReader
+				
+				Map<String, GettData.Quote> data = yahooReader
 						.getQuote(quotes);
 				
 				//enhanced for
-				for (Map.Entry<String, GetYahooMarketData.QuoteData> entry : data
+				for (Map.Entry<String, GettData.Quote> entry : data
 						.entrySet()) {
 					//Thread.sleep(1000);
 					
-					GetYahooMarketData.QuoteData quote = entry.getValue();
+					GettData.Quote quote = entry.getValue();
 					out.print("<tr>");
 					out.println("<td>" + entry.getKey() + "</td><td>"
 							+ quote.closePrice + "</td>");
 					out.print("</tr>");
 				}
-		//	}
+				//	}
 		%>
 	</table>
 </body>

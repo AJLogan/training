@@ -8,9 +8,9 @@ import java.util.*;
 
 // Get quote data for a list of symbols and returns it in a Map
 
-public class GetYahooMarketData {
+public class GettData {
 	// Quote Data class
-	public class QuoteData {
+	public class Quote {
 		public float askPrice;
 		public float bidPrice;
 		public int askSize;
@@ -20,7 +20,7 @@ public class GetYahooMarketData {
 		public int volume;
 	}
 
-	public Map<String, QuoteData> getQuote(String[] stocks) throws Exception {
+	public Map<String, Quote> getQuote(String[] stocks) throws Exception {
 		// Build the URL
 		StringBuilder url = new StringBuilder(
 				"http://download.finance.yahoo.com/d/quotes.csv?s=");
@@ -34,7 +34,7 @@ public class GetYahooMarketData {
 		List<String> csv = getCsv(url.toString());
 
 		// Build response
-		Map<String, QuoteData> quotes = new HashMap<String, QuoteData>();
+		Map<String, Quote> quotes = new HashMap<String, Quote>();
 		int i = 0;
 		for (String line : csv) {
 			// Parse csv lines
@@ -43,7 +43,7 @@ public class GetYahooMarketData {
 			// Should be 4 values if not discard line
 			// I think there is an error with this if
 			if (fields.length == 6 || fields.length == 8) {
-				QuoteData quote = new QuoteData();
+				Quote quote = new Quote();
 				try {
 					if (fields.length == 6) {
 
@@ -76,6 +76,7 @@ public class GetYahooMarketData {
 		}
 		// check against previous quote
 		// write to db
+		System.out.println(quotes.toString());
 
 		return quotes;
 	}
