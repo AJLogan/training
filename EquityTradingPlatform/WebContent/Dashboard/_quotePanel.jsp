@@ -30,8 +30,8 @@
 		Connection cn2 = null;
 		try {
 			cn2 = DriverManager
-					.getConnection("jdbc:mysql://localhost:8889/EquityTrading?"
-							+ "user=root&password=root");
+					.getConnection("jdbc:mysql://localhost/EquityTrading?"
+							+ "user=root&password=password");
 		} catch (SQLException e) {
 			System.out.println("Error connecting to a database: " + e);
 		}
