@@ -44,12 +44,12 @@ public class Startup implements ServletContextListener {
 //		Startup strategies
 		TMA twoPoint = new TMA();
 		executor.execute(twoPoint);
-		app.addSymbol("YHOO");
-		app.addHandler("YHOO", twoPoint);
-		app.addSymbol("YHOO");
-		app.addHandler("AAPL", twoPoint);
-		app.addSymbol("IBM");
-		app.addHandler("IBM", twoPoint);
+//		app.addSymbol("YHOO");
+//		app.addHandler("YHOO", twoPoint);
+//		app.addSymbol("YHOO");
+//		app.addHandler("AAPL", twoPoint);
+//		app.addSymbol("IBM");
+//		app.addHandler("IBM", twoPoint);
 	}
 
 }

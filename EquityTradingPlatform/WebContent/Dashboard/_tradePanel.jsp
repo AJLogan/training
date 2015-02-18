@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
-	import="com.awesome.*" %>
+	import="com.awesome.*"%>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
@@ -19,38 +19,39 @@
 					<th>Amount (USD)</th>
 				</tr>
 				<%
-						try {
+					try {
 
-							Class.forName("com.mysql.jdbc.Driver");
+						Class.forName("com.mysql.jdbc.Driver");
 
-							Connection cn = null;
+						Connection cn = null;
 
-							cn = DriverManager
-									.getConnection("jdbc:mysql://localhost/classfiles?user=root&password=password");
+						cn = DriverManager
+								.getConnection("jdbc:mysql://localhost:8889/EquityTrading?"
+										+ "user=root&password=root");
 
-							Statement st = cn.createStatement();
-							ResultSet rs = st
-									.executeQuery("select id, ticker, volume, price, dealer from trades");
-							while (rs.next()) {
-								out.println("<tr>");
-									out.print("<td>" + rs.getInt("id") + "</td>" 
-									+ "<td>" + rs.getString("ticker") + "</td>" 
-									+ "<td>" + rs.getInt("volume")+ "</td>" 
-									+ "<td>" + rs.getFloat("price") + "</td>"
-									+ "<td>" + rs.getString("dealer") + "</td>");
-								out.println("</tr>");
-							}// while
+						Statement st = cn.createStatement();
+						ResultSet rs = st
+								.executeQuery("select id, ticker, volume, price, dealer from trades");
+						while (rs.next()) {
+							out.println("<tr>");
+							out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"
+									+ rs.getString("ticker") + "</td>" + "<td>"
+									+ rs.getInt("volume") + "</td>" + "<td>"
+									+ rs.getFloat("price") + "</td>" + "<td>"
+									+ rs.getString("dealer") + "</td>");
+							out.println("</tr>");
+						}// while
 
-						} catch (SQLException e) {
-							throw e;
-						}// catch
-						catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					%>
+					} catch (SQLException e) {
+						throw e;
+					}// catch
+					catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				%>
 
-			
+
 			</table>
 		</div>
 		<div class="text-right">
