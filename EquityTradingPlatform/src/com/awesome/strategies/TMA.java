@@ -17,7 +17,35 @@ public class TMA implements MarketDataHandler, Runnable {
 		System.out.print(symbol + " " + bidPrice + " " + bidSize + " "
 				+ askPrice + " " + askSize);
 		// TODO Auto-generated method stub
+		//true or false should be returned
+		twoPointMovingAvg();		
 	}
+	
+		
+	public boolean twoPointMovingAvg(){
+		
+		return true;
+	}
+	
+	public void longAverage(){
+		
+		try {
+			//yahooDat.getQuote(stocks);
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void shortAverage(){
+		
+	}
+
+
 
 	@Override
 	public void run() {
@@ -36,7 +64,8 @@ public class TMA implements MarketDataHandler, Runnable {
 				e.printStackTrace();
 			}
 		}
-
 	}
+	
+	
 
 }
