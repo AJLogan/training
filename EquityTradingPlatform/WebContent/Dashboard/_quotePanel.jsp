@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
+	import="com.awesome.*" %>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
@@ -7,64 +10,60 @@
 	<div class="panel-body">
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover table-striped">
-				<thead>
-					<tr>
-						<th>Order #</th>
-						<th>Order Date</th>
-						<th>Order Time</th>
-						<th>Amount (USD)</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>3326</td>
-						<td>10/21/2013</td>
-						<td>3:29 PM</td>
-						<td>$321.33</td>
-					</tr>
-					<tr>
-						<td>3325</td>
-						<td>10/21/2013</td>
-						<td>3:20 PM</td>
-						<td>$234.34</td>
-					</tr>
-					<tr>
-						<td>3324</td>
-						<td>10/21/2013</td>
-						<td>3:03 PM</td>
-						<td>$724.17</td>
-					</tr>
-					<tr>
-						<td>3323</td>
-						<td>10/21/2013</td>
-						<td>3:00 PM</td>
-						<td>$23.71</td>
-					</tr>
-					<tr>
-						<td>3322</td>
-						<td>10/21/2013</td>
-						<td>2:49 PM</td>
-						<td>$8345.23</td>
-					</tr>
-					<tr>
-						<td>3321</td>
-						<td>10/21/2013</td>
-						<td>2:23 PM</td>
-						<td>$245.12</td>
-					</tr>
-					<tr>
-						<td>3320</td>
-						<td>10/21/2013</td>
-						<td>2:15 PM</td>
-						<td>$5663.54</td>
-					</tr>
-					<tr>
-						<td>3319</td>
-						<td>10/21/2013</td>
-						<td>2:13 PM</td>
-						<td>$943.45</td>
-					</tr>
-				</tbody>
+				<tr>
+					<th>ticker</th>
+					<th>askPrice</th>
+					<th>askSize</th>
+					<th>bidPrice</th>
+					<th>bidSize</th>
+					<th>closePrice</th>
+					<th>volume</th>
+				</tr>
+				<%
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			out.println("Error loading driver: " + e);
+		}
+
+		// Connect to a database
+		Connection cn2 = null;
+		try {
+			cn2 = DriverManager
+					.getConnection("jdbc:mysql://localhost/classfiles?"
+							+ "user=root&password=password");
+		} catch (SQLException e) {
+			System.out.println("Error connecting to a database: " + e);
+		}
+
+		Statement st2;
+		try {
+			// Error occuring here
+			st2 = cn2.createStatement();
+			ResultSet rs2 = st2
+					.executeQuery("select ticker, askPrice, askSize, bidPrice, bidSize, closePrice, volume from quotes");
+
+			//out.println("<table>");
+			while (rs2.next()) {
+				out.println("<tr>");
+				out.print("<td>" + rs2.getString("ticker") + "</td>");
+				out.print("<td>" + rs2.getFloat(2) + "</td>");
+				out.print("<td>" + rs2.getInt(3) + "</td>");
+				out.print("<td>" + rs2.getFloat(4) + "</td>");
+				out.print("<td>" + rs2.getInt(5) + "</td>");
+				out.print("<td>" + rs2.getFloat(6) + "</td>");
+				out.print("<td>" + rs2.getInt(7) + "</td>");
+				out.println("</tr>");
+			}
+
+			//out.println("/table");
+
+		} catch (SQLException sqle) {
+			out.println("Server error: " + sqle);
+		}
+	%>
+				
+				
 			</table>
 		</div>
 		<div class="text-right">
@@ -73,3 +72,77 @@
 		</div>
 	</div>
 </div>
+
+<%-- 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.sql.Connection"
+	import="java.sql.DriverManager" import="java.sql.SQLException"
+	import="java.sql.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h3>Quotes</h3>
+<table>
+<tr>
+<th>ticker</th>
+<th>askPrice</th>
+<th>askSize</th>
+<th>bidPrice</th>
+<th>bidSize</th>
+<th>closePrice</th>
+<th>volume</th>
+</tr>
+	<%
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			out.println("Error loading driver: " + e);
+		}
+
+		// Connect to a database
+		Connection cn = null;
+		try {
+			cn = DriverManager
+					.getConnection("jdbc:mysql://localhost/classfiles?"
+							+ "user=root&password=password");
+		} catch (SQLException e) {
+			System.out.println("Error connecting to a database: " + e);
+		}
+
+		Statement st;
+		try {
+			// Error occuring here
+			st = cn.createStatement();
+			ResultSet rs = st
+					.executeQuery("select ticker,askPrice,askSize,bidPrice,bidSize,closePrice,volume from quotes");
+
+			//out.println("<table>");
+			while (rs.next()) {
+				out.println("<tr>");
+				out.print("<td>" + rs.getString(1) + "</td>");
+				out.print("<td>" + rs.getFloat(2) + "</td");
+				out.print("<td>" + rs.getInt(3) + "</td");
+				out.print("<td>" + rs.getFloat(4) + "</td");
+				out.print("<td>" + rs.getInt(5) + "</td");
+				out.print("<td>" + rs.getFloat(6) + "</td");
+				out.print("<td>" + rs.getInt(7) + "</td");
+				out.println("</tr>");
+			}
+
+			//out.println("/table");
+
+		} catch (SQLException sqle) {
+			out.println("Server error: " + sqle);
+		}
+	%>
+</table>
+
+
+
+</body>
+</html> --%>

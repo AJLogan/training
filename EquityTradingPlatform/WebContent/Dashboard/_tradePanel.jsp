@@ -26,7 +26,7 @@
 							Connection cn = null;
 
 							cn = DriverManager
-									.getConnection("jdbc:mysql://localhost/EquityTrading?user=root&password=password");
+									.getConnection("jdbc:mysql://localhost/classfiles?user=root&password=password");
 
 							Statement st = cn.createStatement();
 							ResultSet rs = st
