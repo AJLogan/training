@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
-	import="com.awesome.*" %>
+	import="com.awesome.*" import="com.awesome.dataAccess.*"%>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
@@ -12,58 +12,36 @@
 			<table class="table table-bordered table-hover table-striped">
 				<tr>
 					<th>ticker</th>
-					<th>askPrice</th>
 					<th>askSize</th>
+					<th>askPrice</th>
 					<th>bidPrice</th>
 					<th>bidSize</th>
 					<th>closePrice</th>
 					<th>volume</th>
 				</tr>
 				<%
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			out.println("Error loading driver: " + e);
-		}
+					try {
+								String newTicker = "AAPL";
+								com.awesome.dataAccess.QuotesQueries qq = new com.awesome.dataAccess.QuotesQueries();
+								ResultSet rs2 = qq.getTop20();
+								while (rs2.next()) {
+									out.println("<tr>");
+									out.print("<td>" + rs2.getString("ticker") + "</td>" 
+										+ "<td>" + rs2.getInt("askSize") + "</td>" 
+										+ "<td>" + rs2.getFloat("askPrice") + "</td>" 
+										+ "<td>" + rs2.getFloat("bidPrice") + "</td>"
+										+ "<td>" + rs2.getInt("bidSize") + "</td>" 
+										+ "<td>" + rs2.getFloat("closePrice") + "</td>" 
+										+ "<td>"+ rs2.getInt("volume") + "</td>");
+									out.println("</tr>");
+								}// while
 
-		// Connect to a database
-		Connection cn2 = null;
-		try {
-			cn2 = DriverManager
-					.getConnection("jdbc:mysql://localhost/EquityTrading?"
-							+ "user=root&password=password");
-		} catch (SQLException e) {
-			System.out.println("Error connecting to a database: " + e);
-		}
+							} catch (SQLException e) {
+								throw e;
+							}// catch
+				%>
 
-		Statement st2;
-		try {
-			// Error occuring here
-			st2 = cn2.createStatement();
-			ResultSet rs2 = st2
-					.executeQuery("select ticker, askPrice, askSize, bidPrice, bidSize, closePrice, volume from quotes");
 
-			//out.println("<table>");
-			while (rs2.next()) {
-				out.println("<tr>");
-				out.print("<td>" + rs2.getString("ticker") + "</td>");
-				out.print("<td>" + rs2.getFloat(2) + "</td>");
-				out.print("<td>" + rs2.getInt(3) + "</td>");
-				out.print("<td>" + rs2.getFloat(4) + "</td>");
-				out.print("<td>" + rs2.getInt(5) + "</td>");
-				out.print("<td>" + rs2.getFloat(6) + "</td>");
-				out.print("<td>" + rs2.getInt(7) + "</td>");
-				out.println("</tr>");
-			}
-
-			//out.println("/table");
-
-		} catch (SQLException sqle) {
-			out.println("Server error: " + sqle);
-		}
-	%>
-				
-				
 			</table>
 		</div>
 		<div class="text-right">

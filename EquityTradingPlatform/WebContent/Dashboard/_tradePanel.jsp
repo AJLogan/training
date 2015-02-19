@@ -17,15 +17,33 @@
 					<th>Order Date</th>
 					<th>Order Time</th>
 					<th>Amount (USD)</th>
+					<th>Dealer</th>
 				</tr>
 				<%
-					try {
+					/*try {
 						TradeQueries tq = new TradeQueries();
 						ResultSet rs = tq.getTop20();
 						while (rs.next()) {
 							out.println("<tr>");
 							out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"
 									+ rs.getString("ticker") + "</td>" + "<td>"
+									+ rs.getInt("volume") + "</td>" + "<td>"
+									+ rs.getFloat("price") + "</td>" + "<td>"
+									+ rs.getString("dealer") + "</td>");
+							out.println("</tr>");
+						}// while
+
+					} catch (SQLException e) {
+						throw e;
+					}// catch*/
+					try {
+						String newTicker = "AAPL";
+						TradeQueries tq = new TradeQueries();
+						ResultSet rs = tq.getTicker(newTicker);
+						while (rs.next()) {
+							out.println("<tr>");
+							out.print("<td>" + rs.getInt("id") + "</td>"
+									+ "<td>" + rs.getString("ticker") + "</td>" + "<td>"
 									+ rs.getInt("volume") + "</td>" + "<td>"
 									+ rs.getFloat("price") + "</td>" + "<td>"
 									+ rs.getString("dealer") + "</td>");
