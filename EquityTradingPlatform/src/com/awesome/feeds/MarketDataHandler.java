@@ -1,5 +1,8 @@
 package com.awesome.feeds;
 
+import java.util.Vector;
+
 public interface MarketDataHandler {
-	void onMarketDataUpdate(String symbol, float bidPrice, int bidSize, float askPrice, int askSize);
+	void onMarketDataUpdate(Vector<String> symbols, float bidPrice,
+			int bidSize, float askPrice, int askSize);
 }

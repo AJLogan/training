@@ -4,6 +4,7 @@
 package com.awesome.strategies;
 
 import java.util.Map;
+import java.util.Vector;
 
 import com.awesome.dataAccess.GetData;
 import com.awesome.dataAccess.GetData.Quote;
@@ -16,9 +17,9 @@ import com.awesome.feeds.MarketDataHandler;
 public class TMA implements MarketDataHandler, Runnable {
 
 	@Override
-	public void onMarketDataUpdate(String symbol, float bidPrice, int bidSize,
-			float askPrice, int askSize) {
-		System.out.print(symbol + " " + bidPrice + " " + bidSize + " "
+	public void onMarketDataUpdate(Vector<String> symbols, float bidPrice,
+			int bidSize, float askPrice, int askSize) {
+		System.out.print(symbols + " " + bidPrice + " " + bidSize + " "
 				+ askPrice + " " + askSize);
 		// TODO Auto-generated method stub
 		// true or false should be returned
@@ -44,7 +45,7 @@ public class TMA implements MarketDataHandler, Runnable {
 	}
 
 	public GetData yahooDat;
-	public String[] stocks = { "IBMD" };
+	public Vector<String> stocks;
 
 	public boolean twoPointMovingAvg() {
 
