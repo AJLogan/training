@@ -14,12 +14,12 @@
 			<%@include file="_alertsDropDown.jsp"%>
 			<%@include file="_userMenu.jsp"%>
 		</ul>
-		
+
 		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<%@include file="_sidebarElements.jsp"%>
 		</div>
-		
+
 		<!-- /.navbar-collapse -->
 		</nav>
 
@@ -78,7 +78,7 @@
 					</div>
 
 					<div class="col-lg-4">
-						<%@include file="_tradePanel.jsp"%>
+						<%@include file="_taskPanel.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -91,7 +91,7 @@
 
 	</div>
 	<!-- /#wrapper -->
-
 	<%@include file="_jsResources.jsp"%>
+
 </body>
 </html>

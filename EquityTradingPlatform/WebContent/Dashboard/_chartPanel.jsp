@@ -9,18 +9,23 @@
 		</h3>
 	</div>
 	<div class="panel-body">
-	<%
+		<%
+			Connection chartPanelCN = DatabaseUtils.setupDB();
 			try {
-				com.awesome.dataAccess.QuotesQueries qq = new com.awesome.dataAccess.QuotesQueries();
-				ResultSet rs2 = qq.getAskPrice();
+				QuotesQueries qq = new QuotesQueries();
+				ResultSet rs2 = qq.getAskPrice(chartPanelCN);
 				while (rs2.next()) {
 					QuoteToJson qtj = new QuoteToJson();
 					out.println(qtj.convert(rs2).toString());//assign to javascript variable
 				}// while
-
 			} catch (SQLException e) {
 				throw e;
 			}// catch
+			finally {
+				if (chartPanelCN != null) {
+					chartPanelCN.close();
+				}
+			}
 		%>
 
 
