@@ -5,8 +5,8 @@ package com.awesome.strategies;
 
 import java.util.Map;
 
-import com.awesome.dataAccess.GettData;
-import com.awesome.dataAccess.GettData.Quote;
+import com.awesome.dataAccess.GetData;
+import com.awesome.dataAccess.GetData.Quote;
 import com.awesome.feeds.MarketDataHandler;
 
 /**
@@ -43,7 +43,7 @@ public class TMA implements MarketDataHandler, Runnable {
 		}
 	}
 
-	public GettData yahooDat;
+	public GetData yahooDat;
 	public String[] stocks = { "IBMD" };
 
 	public boolean twoPointMovingAvg() {
@@ -58,8 +58,8 @@ public class TMA implements MarketDataHandler, Runnable {
 			while (true) {
 				// Get Quotes
 				Map<String, Quote> data = yahooDat.getQuote(stocks);
-				for (Map.Entry<String, GettData.Quote> entry : data.entrySet()) {
-					GettData.Quote quote = entry.getValue();
+				for (Map.Entry<String, GetData.Quote> entry : data.entrySet()) {
+					GetData.Quote quote = entry.getValue();
 					System.out.printf("%s [%d x %.2f] x [%.2f x %d]\n",
 							entry.getKey(), quote.bidSize, quote.bidPrice,
 							quote.askPrice, quote.askSize);

@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 // Get quote data for a list of symbols and returns it in a Map
 
-public class GettData {
+public class GetData {
 	// Quote Data class
 	public class Quote {
 		public float askPrice;

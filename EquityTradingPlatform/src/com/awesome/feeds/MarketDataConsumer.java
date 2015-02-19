@@ -5,7 +5,7 @@ package com.awesome.feeds;
 
 import java.util.Map;
 
-import com.awesome.dataAccess.GettData;
+import com.awesome.dataAccess.GetData;
 import com.awesome.strategies.TMA;
 
 /**
@@ -15,13 +15,13 @@ import com.awesome.strategies.TMA;
 public class MarketDataConsumer implements Runnable {
 
 	public String[] symbols = { "AAPL" };
-	private GettData handler;
+	private GetData handler;
 	private Map<String, MarketDataHandler> handlerMap;
 
 	TMA twopoint = new TMA();
 
 	public MarketDataConsumer() {
-		this.handler = new GettData();
+		this.handler = new GetData();
 	}
 
 	public void addSymbol(String symbol) {
@@ -42,9 +42,9 @@ public class MarketDataConsumer implements Runnable {
 		System.out.println("Running");
 		while (true) {
 			try {
-				Map<String, GettData.Quote> data = handler.getQuote(symbols);
-				for (Map.Entry<String, GettData.Quote> value : data.entrySet()) {
-					GettData.Quote quote = value.getValue();
+				Map<String, GetData.Quote> data = handler.getQuote(symbols);
+				for (Map.Entry<String, GetData.Quote> value : data.entrySet()) {
+					GetData.Quote quote = value.getValue();
 
 					// THIS DOESNT CONTAIN ANYTHING YET!!!
 					// if (handlerMap.containsKey(symbol)) {
