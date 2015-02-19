@@ -13,7 +13,7 @@ public class TradeQueries {
 		return rs;
 	}
 
-	public ResultSet getTicker(String inTicker) throws SQLException {
+	public ResultSet getByTicker(String inTicker) throws SQLException {
 		query = "select id, ticker, volume, price, dealer from EquityTrading.trades where ticker = '"
 				+ inTicker + "'";
 		ResultSet rs = DatabaseUtils.executeQuery(DatabaseUtils.setupDB(),

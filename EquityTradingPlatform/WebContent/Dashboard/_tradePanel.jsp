@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
-	import="com.awesome.*" import="com.awesome.dataAccess.*" %>
+	import="com.awesome.*" import="com.awesome.dataAccess.*"
+	import="com.awesome.jsonparser.*"%>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
@@ -21,40 +22,40 @@
 				</tr>
 				<%
 					/*try {
-						TradeQueries tq = new TradeQueries();
-						ResultSet rs = tq.getTop20();
-						while (rs.next()) {
-							out.println("<tr>");
-							out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"
-									+ rs.getString("ticker") + "</td>" + "<td>"
-									+ rs.getInt("volume") + "</td>" + "<td>"
-									+ rs.getFloat("price") + "</td>" + "<td>"
-									+ rs.getString("dealer") + "</td>");
-							out.println("</tr>");
-						}// while
+								TradeQueries tq = new TradeQueries();
+								ResultSet rs = tq.getTop20();
+								while (rs.next()) {
+									out.println("<tr>");
+									out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"
+											+ rs.getString("ticker") + "</td>" + "<td>"
+											+ rs.getInt("volume") + "</td>" + "<td>"
+											+ rs.getFloat("price") + "</td>" + "<td>"
+											+ rs.getString("dealer") + "</td>");
+									out.println("</tr>");
+								}// while
 
-					} catch (SQLException e) {
-						throw e;
-					}// catch*/
-					try {
-						String newTicker = "AAPL";
-						TradeQueries tq = new TradeQueries();
-						ResultSet rs = tq.getTicker(newTicker);
-						while (rs.next()) {
-							out.println("<tr>");
-							out.print("<td>" + rs.getInt("id") + "</td>"
-									+ "<td>" + rs.getString("ticker") + "</td>" + "<td>"
-									+ rs.getInt("volume") + "</td>" + "<td>"
-									+ rs.getFloat("price") + "</td>" + "<td>"
-									+ rs.getString("dealer") + "</td>");
-							out.println("</tr>");
-						}// while
+							} catch (SQLException e) {
+								throw e;
+							}// catch*/
+							try {
+								String newTicker = "AAPL";
+								TradeQueries tq = new TradeQueries();
+								ResultSet rs = tq.getByTicker(newTicker);
+								while (rs.next()) {
+									out.println("<tr>");
+									out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"
+											+ rs.getString("ticker") + "</td>" + "<td>"
+											+ rs.getInt("volume") + "</td>" + "<td>"
+											+ rs.getFloat("price") + "</td>" + "<td>"
+											+ rs.getString("dealer") + "</td>");
+									out.println("</tr>");
+								}// while
 
-					} catch (SQLException e) {
-						throw e;
-					}// catch
+							} catch (SQLException e) {
+								throw e;
+							}// catch
 				%>
-		</table>
+			</table>
 		</div>
 		<div class="text-right">
 			<a href="#">View All Transactions <i

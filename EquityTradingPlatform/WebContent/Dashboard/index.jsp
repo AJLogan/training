@@ -63,6 +63,7 @@
 						<%-- <%@include file="_areaChartPanel.jsp"%> --%>
 						<%@include file="_tradePanel.jsp"%>
 						<%@include file="_quotePanel.jsp"%>
+						<%@include file="_chartPanel.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->
