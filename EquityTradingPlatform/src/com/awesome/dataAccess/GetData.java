@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Vector;
 
 // Get quote data for a list of symbols and returns it in a Map
 
@@ -25,12 +26,11 @@ public class GetData {
 		public int volume;
 	}
 
-	public Map<String, Quote> getQuote(String[] stocks) throws Exception {
+	public Map<String, Quote> getQuote(Vector<String> stocks) throws Exception {
 		// Build the URL
 		StringBuilder url = new StringBuilder(
 				"http://download.finance.yahoo.com/d/quotes.csv?s=");
-
-		for (String s : stocks)
+		for (String s : stocks.toArray(new String[stocks.size()]))
 			url.append(s + ",");
 		url.deleteCharAt(url.length() - 1);
 		// Properties is for bid and ask
@@ -73,7 +73,7 @@ public class GetData {
 
 					}
 					// Insert quote with stock as key
-					quotes.put(stocks[i], quote);
+					quotes.put(stocks.toArray(new String[stocks.size()])[i], quote);
 				} catch (NumberFormatException e) {
 				}
 

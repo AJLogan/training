@@ -17,6 +17,7 @@ import com.awesome.strategies.TMA;
 @WebListener
 public class Startup implements ServletContextListener {
 	ExecutorService executor = null;
+	private MarketDataConsumer app = new MarketDataConsumer();
 
 	/**
 	 * Default constructor.
@@ -39,17 +40,15 @@ public class Startup implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		System.out.println("contextInitialized");
 		executor = Executors.newFixedThreadPool(10); // Max 10 threads.
-		MarketDataConsumer app = new MarketDataConsumer();
+		
 		executor.execute(app);
 //		Startup strategies
 		TMA twoPoint = new TMA();
 		executor.execute(twoPoint);
-//		app.addSymbol("YHOO");
-//		app.addHandler("YHOO", twoPoint);
-//		app.addSymbol("YHOO");
-//		app.addHandler("AAPL", twoPoint);
-//		app.addSymbol("IBM");
-//		app.addHandler("IBM", twoPoint);
+		app.addSymbol("YHOO");
+		app.addSymbol("AAPL");
+		app.addHandler("AAPL", twoPoint);
+		app.addHandler("YHOO", twoPoint);
 	}
 
 }

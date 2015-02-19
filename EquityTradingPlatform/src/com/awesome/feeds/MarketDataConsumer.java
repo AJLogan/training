@@ -3,7 +3,9 @@
  */
 package com.awesome.feeds;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import com.awesome.dataAccess.GetData;
 import com.awesome.strategies.TMA;
@@ -14,32 +16,43 @@ import com.awesome.strategies.TMA;
  */
 public class MarketDataConsumer implements Runnable {
 
-	public String[] symbols = { "AAPL" };
+	// public String[] symbols = { "AAPL" };
+	public Vector<String> symbols = new Vector<String>();
 	private GetData handler;
-	private Map<String, MarketDataHandler> handlerMap;
-
-	TMA twopoint = new TMA();
+	private Map<String, MarketDataHandler> handlerMap = new HashMap<String, MarketDataHandler>();
 
 	public MarketDataConsumer() {
 		this.handler = new GetData();
 	}
 
 	public void addSymbol(String symbol) {
-		// symbols.add(symbol)
+		symbols.add(symbol);
+	}
+
+	public void removeSymbol(String symbol) {
+		symbols.remove(symbols.indexOf(symbol));
 	}
 
 	public void addHandler(String symbol, MarketDataHandler strategy) {
 		// Check Symbol Is currently subscribed to
+		if (handlerMap.containsKey(symbol) != true) {
+			handlerMap.put(symbol, strategy);
+		} else
+			return;
 		// do with a list of handlers
-		handlerMap.put(symbol, strategy);
+	}
+
+	public void removeHandler(String symbol, MarketDataHandler strategy) {
+		// Check Symbol Is currently subscribed to
+		if (handlerMap.containsKey(symbol) != true) {
+			handlerMap.remove(symbol, strategy);
+		} else
+			return;
+		// do with a list of handlers
 	}
 
 	@Override
 	public void run() {
-
-		// handlerMap.put("YHOO", twopoint);
-
-		System.out.println("Running");
 		while (true) {
 			try {
 				Map<String, GetData.Quote> data = handler.getQuote(symbols);
@@ -47,12 +60,12 @@ public class MarketDataConsumer implements Runnable {
 					GetData.Quote quote = value.getValue();
 
 					// THIS DOESNT CONTAIN ANYTHING YET!!!
-					// if (handlerMap.containsKey(symbol)) {
-					// MarketDataHandler strategy = handlerMap.get(symbol);
-					//
-					// strategy.onMarketDataUpdate(symbol, quote.bidPrice,
-					// quote.bidSize, quote.askPrice, quote.askSize);
-					// }
+					if (handlerMap.containsKey(symbols)) {
+						MarketDataHandler strategy = handlerMap.get(symbols);
+
+						strategy.onMarketDataUpdate(symbols, quote.bidPrice,
+								quote.bidSize, quote.askPrice, quote.askSize);
+					}
 
 				}
 
