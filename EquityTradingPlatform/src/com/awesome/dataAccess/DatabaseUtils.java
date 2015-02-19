@@ -12,8 +12,8 @@ public class DatabaseUtils {
 
 	public static Connection setupDB() {
 		String jdbcDriver = "com.mysql.jdbc.Driver";
-		String databaseUri = "jdbc:mysql://localhost/EquityTrading?"
-				+ "user=root&password=password";
+		String databaseUri = "jdbc:mysql://localhost:8889/EquityTrading?"
+				+ "user=root&password=root";
 
 		try {
 			Class.forName(jdbcDriver);
@@ -35,13 +35,17 @@ public class DatabaseUtils {
 			throws SQLException {
 		Statement st = cn.createStatement();
 		ResultSet rs = st.executeQuery(query);
+		cn.close();
 		return rs;
 	}
 
 	public static void executeUpdate(Connection cn, String query)
 			throws SQLException {
 		Statement st = cn.createStatement();
+		
 		st.executeUpdate(query);
+		cn.close();
+		
 	};
 
 	public static void executePreparedStatement(Connection cn, String query,
@@ -51,6 +55,7 @@ public class DatabaseUtils {
 			ps.setString(i, accounts.toString());
 		}
 		ps.executeUpdate(query);
+		cn.close();
 	}
 
 	public static ResultSet executeStoredProc(Connection cn, String query,
@@ -58,6 +63,7 @@ public class DatabaseUtils {
 		CallableStatement st = cn.prepareCall(query);
 		st.setString(1, param);
 		ResultSet rs = st.executeQuery();
+		cn.close();
 		return rs;
 	}
 }

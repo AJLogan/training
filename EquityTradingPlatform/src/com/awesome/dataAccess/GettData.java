@@ -137,11 +137,7 @@ public class GettData {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} /*
-		 * finally { try { cn.close(); } catch (SQLException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } try { st.close(); }
-		 * catch (SQLException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } }
-		 */
+		}
+
 	}
 }
