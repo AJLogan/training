@@ -43,15 +43,20 @@
 					<div class="col-lg-6">
 						<div>
 							<%@include file="_equity.jsp"%>
-							<%@include file="_manualTrader.jsp"%>
+							
 						</div>
 					</div>
 				</div>
 				<!-- /.row -->
 
 				<div class="row">
-					<div class="col-lg-12">
-						<%@include file="_tradePanel.jsp"%>
+					<div>
+						<div class="col-lg-8">
+							<%@include file="_tradePanel.jsp"%>
+						</div>
+						<div class="col-lg-4">
+							<%@include file="_manualTrader.jsp"%>
+						</div>
 					</div>
 				</div>
 				<!-- /.row -->
