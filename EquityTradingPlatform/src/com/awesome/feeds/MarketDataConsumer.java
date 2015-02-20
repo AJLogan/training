@@ -14,8 +14,6 @@ import com.awesome.dataAccess.GetData;
  *
  */
 public class MarketDataConsumer implements Runnable {
-
-	// public String[] symbols = { "AAPL" };
 	public Vector<String> symbols = new Vector<String>();
 	private GetData handler;
 	private Map<String, MarketDataHandler> handlerMap = new HashMap<String, MarketDataHandler>();

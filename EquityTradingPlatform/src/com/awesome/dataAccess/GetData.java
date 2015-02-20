@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +74,8 @@ public class GetData {
 
 					}
 					// Insert quote with stock as key
-					quotes.put(stocks.toArray(new String[stocks.size()])[i], quote);
+					quotes.put(stocks.toArray(new String[stocks.size()])[i],
+							quote);
 				} catch (NumberFormatException e) {
 				}
 
@@ -114,6 +116,7 @@ public class GetData {
 	}
 
 	private void writeQuoteToDB(Entry<String, Quote> quote) {
+		Connection cn = DatabaseUtils.setupDB();
 		try {
 			String query = "insert into quotes(ticker, askPrice, askSize, bidPrice, bidSize, closePrice, volume) values ('"
 					+ quote.getKey()
@@ -129,7 +132,7 @@ public class GetData {
 					+ quote.getValue().closePrice
 					+ ","
 					+ quote.getValue().volume + ")";
-			DatabaseUtils.executeUpdate(DatabaseUtils.setupDB(), query);
+			DatabaseUtils.executeUpdate(cn, query);
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -137,6 +140,15 @@ public class GetData {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if (cn != null) {
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
