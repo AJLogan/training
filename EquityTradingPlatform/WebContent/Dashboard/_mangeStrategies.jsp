@@ -1,13 +1,12 @@
-
-<div class="panel panel-green">
+<div class="panel panel-primary">
 	<div class="panel-heading">
 		<div class="row">
 			<div class="col-xs-3">
-				<i class="fa fa-tasks fa-5x"></i>
+				<i class="fa fa-comments fa-5x"></i>
 			</div>
 			<div class="col-xs-9 text-right">
-				<div class="huge">12</div>
-				<div>Manage Subscriptions</div>
+				<div class="huge">26</div>
+				<div>Manage Strategies</div>
 			</div>
 		</div>
 	</div>

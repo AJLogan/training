@@ -37,39 +37,17 @@
 
 				<div class="row">
 					<div class="col-lg-12">
-						<%@include file="_recentFeatures.jsp"%>
-					</div>
-				</div>
-				<!-- /.row -->
-
-				<div class="row">
-					<div class="col-lg-3 col-md-6">
-						<%@include file="_commentsLabeledButton.jsp"%>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<%@include file="_tasksLabeledButton.jsp"%>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<%@include file="_ordersLabeledButton.jsp"%>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<%@include file="_supportTicketLabeledButton.jsp"%>
-					</div>
-				</div>
-				<!-- /.row -->
-
-				<div class="row">
-					<div class="col-lg-12">
 						<%-- <%@include file="_areaChartPanel.jsp"%> --%>
-						<%@include file="_tradePanel.jsp"%>
-						<%@include file="_quotePanel.jsp"%>
-						<%@include file="_chartPanel.jsp"%>
+
+						<%-- <%@include file="_quotePanel.jsp"%> --%>
 					</div>
 				</div>
 				<!-- /.row -->
 
 				<div class="row">
 					<div class="col-lg-4">
+						<%@include file="_donughtChartPanel.jsp"%>
+						<%@include file="_donughtChartPanel.jsp"%>
 						<%@include file="_donughtChartPanel.jsp"%>
 					</div>
 
@@ -78,7 +56,7 @@
 					</div>
 
 					<div class="col-lg-4">
-						<%@include file="_taskPanel.jsp"%>
+						<%@include file="_tradePanel.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -91,7 +69,7 @@
 
 	</div>
 	<!-- /#wrapper -->
-	<%@include file="_jsResources.jsp"%>
 
+	<%@include file="_jsResources.jsp"%>
 </body>
 </html>

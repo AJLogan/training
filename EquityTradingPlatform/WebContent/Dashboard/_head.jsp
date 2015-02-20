@@ -6,7 +6,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Awesome ET</title>
+<title>Citi Winter Academy 2015</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -20,5 +20,5 @@
 <!-- Custom Fonts -->
 <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
-	
-	
+
+<link href="../css/plugins/bootstrap-toggle.min.css" rel="stylesheet">

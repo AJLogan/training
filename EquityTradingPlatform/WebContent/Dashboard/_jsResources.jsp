@@ -16,3 +16,6 @@
 <script src="../js/plugins/flot/jquery.flot.resize.js"></script>
 <script src="../js/plugins/flot/jquery.flot.pie.js"></script>
 <script src="../js/plugins/flot/flot-data.js"></script>
+
+<!-- Bootstrap Toggle -->
+<script src="./js/plugins/bootstrap-togle/bootstrap-toggle.min.js"></script>

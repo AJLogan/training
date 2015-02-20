@@ -17,7 +17,7 @@ import com.awesome.strategies.TMA;
 @WebListener
 public class Startup implements ServletContextListener {
 	ExecutorService executor = null;
-	private MarketDataConsumer app = new MarketDataConsumer();
+	public MarketDataConsumer app = new MarketDataConsumer();
 
 	/**
 	 * Default constructor.

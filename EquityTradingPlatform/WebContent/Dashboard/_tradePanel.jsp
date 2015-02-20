@@ -4,7 +4,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			<i class="fa fa-money fa-fa"></i> Trade Panel
+			<i class="fa fa-money fa-fa"></i> Trades
 		</h3>
 	</div>
 	<div class="panel-body">

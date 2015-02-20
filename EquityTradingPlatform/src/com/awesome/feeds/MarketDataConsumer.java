@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Vector;
 
 import com.awesome.dataAccess.GetData;
-import com.awesome.strategies.TMA;
 
 /**
  * @author andrew
@@ -66,9 +65,7 @@ public class MarketDataConsumer implements Runnable {
 						strategy.onMarketDataUpdate(symbols, quote.bidPrice,
 								quote.bidSize, quote.askPrice, quote.askSize);
 					}
-
 				}
-
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
