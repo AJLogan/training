@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			<i class="fa fa-clock-o fa-fw"></i> Manage Strategies
+			<i class="fa fa-clock-o fa-fw"></i> Equity
 		</h3>
 	</div>
 	<div class="panel-body">

@@ -9,19 +9,10 @@
 	<div id="wrapper">
 		<%@include file="_navigation.jsp"%>
 		<!-- Top Menu Items -->
-		<ul class="nav navbar-right top-nav">
-			<%@include file="_messagesDropDown.jsp"%>
-			<%@include file="_alertsDropDown.jsp"%>
-			<%@include file="_userMenu.jsp"%>
-		</ul>
+		<%-- <%@include file="_topMenu.jsp"%> --%>
 
 		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<%@include file="_sidebarElements.jsp"%>
-		</div>
-
-		<!-- /.navbar-collapse -->
-		</nav>
+		<%@include file="_sidebarElements.jsp"%>
 
 		<div id="page-wrapper">
 
@@ -36,26 +27,30 @@
 				<!-- /.row -->
 
 				<div class="row">
-					<div class="col-lg-12">
-						<%-- <%@include file="_areaChartPanel.jsp"%> --%>
-
-						<%-- <%@include file="_quotePanel.jsp"%> --%>
+					<div class="col-lg-6">
+						<%@include file="_quoteGraph.jsp"%>
+					</div>
+					<div class="col-lg-6">
+						<%@include file="_summary.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->
 
 				<div class="row">
-					<div class="col-lg-4">
-						<%@include file="_donughtChartPanel.jsp"%>
-						<%@include file="_donughtChartPanel.jsp"%>
-						<%@include file="_donughtChartPanel.jsp"%>
+					<div class="col-lg-6">
+						<%@include file="_mangeStrategies.jsp"%>
 					</div>
-
-					<div class="col-lg-4">
-						<%@include file="_taskPanel.jsp"%>
+					<div class="col-lg-6">
+						<div>
+							<%@include file="_equity.jsp"%>
+							<%@include file="_manualTrader.jsp"%>
+						</div>
 					</div>
+				</div>
+				<!-- /.row -->
 
-					<div class="col-lg-4">
+				<div class="row">
+					<div class="col-lg-12">
 						<%@include file="_tradePanel.jsp"%>
 					</div>
 				</div>
@@ -69,7 +64,6 @@
 
 	</div>
 	<!-- /#wrapper -->
-
 	<%@include file="_jsResources.jsp"%>
 </body>
 </html>
