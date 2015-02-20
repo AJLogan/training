@@ -3,6 +3,7 @@ package com.awesome.startup;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -43,6 +44,7 @@ public class Startup implements ServletContextListener {
 		System.out.println("contextInitialized");
 		executor = Executors.newFixedThreadPool(10); // Max 10 threads.
 		executor.execute(app);
+		ServletContext ctx = arg0.getServletContext();
 //		Startup strategies
 		TMA twoPoint = new TMA();
 		executor.execute(twoPoint);
@@ -50,6 +52,7 @@ public class Startup implements ServletContextListener {
 		app.addSymbol("AAPL");
 		app.addHandler("AAPL", twoPoint);
 		app.addHandler("YHOO", twoPoint);
+		ctx.setAttribute("app", app);
 	}
 
 }
