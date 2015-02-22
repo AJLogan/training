@@ -1,16 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css" />
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="jquery/jquery-2.1.3.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Equity Trading Platform</title>
+<%@include file="/DashboardModules/_head.jsp"%>
 </head>
 <body>
-<h1>Hello Andrew</h1>
+	<div id="wrapper">
+		<%@include file="/DashboardModules/_navigation.jsp"%>
+		<!-- Top Menu Items -->
+		<%@include file="/DashboardModules/_topMenu.jsp"%>
+
+		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+		<%@include file="/DashboardModules/_sidebarElements.jsp"%>
+
+		<div id="page-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+						<%@include file="/DashboardModules/_pageHeader.jsp"%>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-6">
+						<%@include file="/DashboardModules/_quoteGraph.jsp"%>
+					</div>
+					<div class="col-lg-6">
+						<%@include file="/DashboardModules/_summary.jsp"%>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-6">
+						<%@include file="/DashboardModules/_mangeStrategies.jsp"%>
+					</div>
+					<div class="col-lg-6">
+						<div>
+							<%@include file="/DashboardModules/_equity.jsp"%>
+
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div>
+						<div class="col-lg-8">
+							<%@include file="/DashboardModules/_tradePanel.jsp"%>
+						</div>
+						<div class="col-lg-4">
+							<%@include file="/DashboardModules/_manualTrader.jsp"%>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+			</div>
+			<!-- /.container-fluid -->
+
+		</div>
+		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+	<%@include file="/DashboardModules/_jsResources.jsp"%>
 </body>
 </html>
