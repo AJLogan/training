@@ -18,9 +18,7 @@ import com.awesome.strategies.TMA;
 @WebListener
 public class Startup implements ServletContextListener {
 	ExecutorService executor = null;
-	private MarketDataConsumer app = new MarketDataConsumer();
-	
-	
+	private MarketDataConsumer app = new MarketDataConsumer();	
 	
 	/**
 	 * Default constructor.
@@ -33,7 +31,6 @@ public class Startup implements ServletContextListener {
 	 * @see ServletContextListener#contextDestroyed(ServletContextEvent)
 	 */
 	public void contextDestroyed(ServletContextEvent arg0) {
-		System.out.println("contextDestroyed");
 		executor.shutdownNow();
 	}
 
@@ -41,7 +38,6 @@ public class Startup implements ServletContextListener {
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
 	public void contextInitialized(ServletContextEvent arg0) {
-		System.out.println("contextInitialized");
 		executor = Executors.newFixedThreadPool(10); // Max 10 threads.
 		executor.execute(app);
 		ServletContext ctx = arg0.getServletContext();
