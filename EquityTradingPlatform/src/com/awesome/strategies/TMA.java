@@ -34,6 +34,7 @@ public class TMA implements MarketDataHandler, Runnable {
 	@Override
 	public void onMarketDataUpdate(Vector<String> symbols, float bidPrice,
 			int bidSize, float askPrice, int askSize) {
+		System.out.println("tma");
 		GetData yahooReader = new GetData();
 		Vector<String> quotes = new Vector<String>();
 		quotes.add("TESO");

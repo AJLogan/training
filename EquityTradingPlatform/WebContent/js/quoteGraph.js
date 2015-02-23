@@ -66,7 +66,7 @@ $(function() {
                     markings.push({
                         xaxis: {
                             from: x,
-                            to: x + xaxis.tickSize
+                            to: x + xaxis.tickSizex
                         },
                         color: "rgba(232, 232, 255, 0.2)"
                     });
