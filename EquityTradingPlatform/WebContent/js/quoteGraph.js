@@ -34,11 +34,30 @@ $(function() {
 
         return res;
     }
+    
+    function getQuotes(){
+    	 if (data.length) {
+             data = data.slice(1);
+         } 
+    	 
+    	 for(var i = 0; i < "<%=quotes.length%>"; ++i){
+    		 data.push("<%=quotes[i]%>");
+    	 }
+    	 return data;
+    	 //while (data.length < maximum) {
+    		// var previous = data.length ? data[data.length - 1] : 50;
+            // var y = previous + "<%=quotes%>";
+             //data.push(y < 0 ? 0 : y > 100 ? 100 : y);
+       //  }
+    	 
+    	
+    	
+    }
 
     //
 
     series = [{
-        data: getRandomData(),
+        data: getQuotes(),
         lines: {
             fill: true
         }
