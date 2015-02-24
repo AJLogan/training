@@ -21,3 +21,5 @@
 
 <!-- RSS Parser -->
 <script src="js/rssParser.js"></script> 
+<script src="js/canvasjs.js"></script>
+<script src="js/canvasJSChart.js"></script>
