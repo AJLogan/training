@@ -1,9 +1,9 @@
 // Flot Chart Dynamic Chart
 
-//$(function() {
-$.get('QuoteGraphServlet',function(responseJson) {
-	$('#mydiv').text(responseText);
-    var items = responseText;
+$(function() {
+	//$.get('QuoteGraphServlet',function(responseJson) {
+		//$('#quoteGraph').text(responseText);
+   // var items = responseText;
 
 	var container = $("#quoteGraph");
 	var debug = $("#debug");
@@ -13,13 +13,13 @@ $.get('QuoteGraphServlet',function(responseJson) {
 	// this gives us a nice high-res plot while avoiding more than one point per
 	// pixel.
 
-	var maximum = container.outerWidth() / 2 || 300;
+	var maximum = container.outerWidth();
 
 	//
 
 	var data = [];
 
-	/*function getRandomData() {
+	function getRandomData() {
 
 		if (data.length) {
 			data = data.slice(1);
@@ -39,31 +39,28 @@ $.get('QuoteGraphServlet',function(responseJson) {
 		}
 
 		return res;
-	}*/
-
+	}
+	
 	function getQuotes() {
-		
-		while (data.length < maximum) {
-
-			"<%for(int i = 0;i < quotes.length();i++) {%>"
-			data.push("<%=quotes.get(i)%>");
-			"<%}%>"
+		if (data.length) {
+			data = data.slice(1);
 		}
+		$.ajax({
+	 		url: 'QuoteGraphServlet',
+	 		success: function(test){
+	 			data = test;
+	 		}
+			});
+		//alert(data[0])
+		data = data.slice(1,maximum);
 		var res = [];
 		for (var i = 0; i < data.length; ++i) {
 			res.push([ i, data[i] ])
 		}
-		
+
 		return res;
-
-		// while (data.length < maximum) {
-		// var previous = data.length ? data[data.length - 1] : 50;
-		// var y = previous + "<%=quotes%>";
-		// data.push(y < 0 ? 0 : y > 100 ? 100 : y);
-		// }
-
+	
 	}
-z
 
 	series = [ {
 		data : getQuotes(),
@@ -112,8 +109,8 @@ z
 							}
 						},
 						yaxis : {
-							min : 0,
-							max : 110
+							min : 125,
+							max : 135
 						},
 						legend : {
 							show : true
@@ -124,8 +121,11 @@ z
 
 	setInterval(function updateRandom() {
 		series[0].data = getQuotes();
+		//series= getQuotes();
 		plot.setData(series);
+		//plot.setData(getQuotes);
 		plot.draw();
-	}, 40);
+	}, 600);
 
-});
+	});
+
