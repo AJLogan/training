@@ -34,17 +34,5 @@
 			</div>
 	
 		</div>
-
-
-		<!-- This is where the new symbols will go 
-		connect to yahoo finance to get list of all the symbols-->
-		<%
-			//ServletContext ctx = getServletContext();
-			//MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
-			//md.addSymbol("FB");
-			//out.println(md.symbols.toString());
-			//md.removeSymbol("FB");
-			//out.println(md.symbols.toString());
-		%>
 	</div>
 </div>
