@@ -55,13 +55,11 @@ public class MarketDataConsumer implements Runnable {
 				Map<String, GetData.Quote> data = handler.getQuote(symbols);
 				for (Map.Entry<String, GetData.Quote> value : data.entrySet()) {
 					GetData.Quote quote = value.getValue();
-
 					// THIS DOESNT CONTAIN ANYTHING YET!!!
-					if (handlerMap.containsKey(symbols)) {
+					if (handlerMap.containsKey(value.getKey())) {
 						MarketDataHandler strategy = handlerMap.get(symbols);
-
-						strategy.onMarketDataUpdate(symbols, quote.bidPrice,
-								quote.bidSize, quote.askPrice, quote.askSize);
+						strategy = handlerMap.get(value.getKey());
+						strategy.onMarketDataUpdate(symbols, quote.bidPrice, quote.bidSize, quote.askPrice, quote.askSize);
 					}
 				}
 			} catch (Exception e1) {

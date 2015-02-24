@@ -36,8 +36,8 @@ public class TMA implements MarketDataHandler, Runnable {
 			int bidSize, float askPrice, int askSize) {
 		System.out.println("tma");
 		GetData yahooReader = new GetData();
-		Vector<String> quotes = new Vector<String>();
-		quotes.add("TESO");
+		Vector<String> quotes = symbols;
+//		quotes.add("TESO");
 		// TESO TCO.SG
 		// TATN:RM
 		// FB
