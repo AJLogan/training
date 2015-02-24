@@ -29,7 +29,7 @@ public class QuotesQueries {
 	}// getTicker
 
 	public ResultSet getAskPrice(Connection cn) throws SQLException {
-		query = "select ticker, askPrice from EquityTrading.quotes limit 10";
+		query = "select ticker, askPrice from EquityTrading.quotes limit 100";
 		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
 		return rs;
 	}// getTicker

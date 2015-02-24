@@ -70,5 +70,6 @@
 	</div>
 	<!-- /#wrapper -->
 	<%@include file="/DashboardModules/_jsResources.jsp"%>
+	
 </body>
 </html>
