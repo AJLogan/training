@@ -1,3 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
+	import="com.awesome.*" import="com.awesome.dataAccess.*"
+	import="com.awesome.jsonparser.*" import="com.google.gson.Json.*" import="java.json.*" import="org.json.*"%>
+<%
+QuotesQueries qq = new QuotesQueries();
+//ArrayList<JSONArray> quotes = new ArrayList<JSONArray>();
+//quotes.add(qq.getAsk());
+JSONArray quotes = qq.getAsk();
+System.out.println(quotes.length());
+System.out.print(quotes.get(1));
+%>
+
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
