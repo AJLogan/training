@@ -1,0 +1,20 @@
+@keyframes marquee {
+    0%   { text-indent: 430px }
+    100% { text-indent: -485px }
+}
+
+@-webkit-keyframes marquee {
+    0%   { text-indent: 430px }
+    100% { text-indent: -485px }
+}
+
+.marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: marquee 17s linear infinite;
+    -webkit-animation: marquee 17s linear infinite;
+}
+
+.marquee:hover {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
