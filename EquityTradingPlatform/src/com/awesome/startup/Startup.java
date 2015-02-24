@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.awesome.feeds.MarketDataConsumer;
+import com.awesome.strategies.PBO;
 import com.awesome.strategies.TMA;
 
 /**
@@ -43,11 +44,14 @@ public class Startup implements ServletContextListener {
 		ServletContext ctx = arg0.getServletContext();
 //		Startup strategies
 		TMA twoPoint = new TMA();
+		PBO breakout = new PBO();
 		executor.execute(twoPoint);
 		app.addSymbol("YHOO");
 		app.addSymbol("AAPL");
 		app.addHandler("AAPL", twoPoint);
 		app.addHandler("YHOO", twoPoint);
+		app.addHandler("AAPL", breakout);
+		app.addHandler("YHOO", breakout);
 		ctx.setAttribute("app", app);
 	}
 
