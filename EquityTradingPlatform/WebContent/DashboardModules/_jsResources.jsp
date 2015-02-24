@@ -16,5 +16,5 @@
 <script src="js/plugins/flot/jquery.flot.resize.js"></script>
 <script src="js/plugins/flot/jquery.flot.pie.js"></script>
 <!-- <script src="../js/plugins/flot/flot-data.js"></script> -->
-<script src="js/quoteGraph.js"></script>
+<!-- <script src="js/quoteGraph.js"></script> -->
 <script src="js/summary.js"></script>

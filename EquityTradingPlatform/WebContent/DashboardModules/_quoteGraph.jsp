@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
 	import="com.awesome.*" import="com.awesome.dataAccess.*"
-	import="com.awesome.jsonparser.*" import="com.google.gson.Json.*" import="java.json.*" import="org.json.*"%>
+	import="com.awesome.jsonparser.*" import="org.json.*"%>
 <%
-QuotesQueries qq = new QuotesQueries();
-//ArrayList<JSONArray> quotes = new ArrayList<JSONArray>();
-//quotes.add(qq.getAsk());
-JSONArray quotes = qq.getAsk();
-System.out.println(quotes.length());
-System.out.print(quotes.get(1));
+	QuotesQueries qq = new QuotesQueries();
+	//ArrayList<JSONArray> quotes = new ArrayList<JSONArray>();
+	//quotes.add(qq.getAsk());
+	JSONArray quotes = qq.getAsk();
+	System.out.println(quotes.length());
+	System.out.print(quotes.get(1));
 %>
 
 <div class="panel panel-default">
@@ -18,7 +18,13 @@ System.out.print(quotes.get(1));
 		</h3>
 	</div>
 	<div class="panel-body">
+		<div class="flot-chart-content" id="debug">
+			<script type="text/javascript" src="test.js">
+			</script>
+			
+		</div>
 		<div class="flot-chart">
+
 			<div class="flot-chart-content" id="quoteGraph"></div>
 		</div>
 		<div class="text-right">
@@ -26,4 +32,3 @@ System.out.print(quotes.get(1));
 		</div>
 	</div>
 </div>
-
