@@ -10,21 +10,6 @@
 
 		<!-- HTML for SEARCH BAR -->
 		<div id="tfheader">
-
-			<form action="action_page.php">
-				<input type="url" list="quote_list" name="link" size="18"
-					maxlength="80"><br>
-			</form>
-			<br>
-
-			<datalist id="quote_list">
-				<!-- Connect to the database here -->
-				<option label="Microsoft" value="http://www.microsoft.com">
-				<option label="Google" value="http://www.google.com">
-				<option label="W3Schools" value="http://www.w3schools.com">
-			</datalist>
-
-
 			<div class="form-group input-group">
 				<input type="text" class="form-control"> <span
 					class="input-group-btn"><button class="btn btn-default"
@@ -47,14 +32,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="table-responsive">
-				<table class="table table-bordered table-hover table-striped">
-					<tr>
-						<th class="absorbing-column">Symbol</th>
-						<th class="absorbing-column">Name</th>
-					</tr>
-				</table>
-			</div>
+	
 		</div>
 
 

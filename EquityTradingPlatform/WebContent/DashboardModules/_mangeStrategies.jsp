@@ -4,14 +4,27 @@
 			<i class="fa fa-clock-o fa-fw"></i> Manage Strategies
 		</h3>
 	</div>
-	<div class="panel-body">
-		<div class="list-group">
-			<a href="#" class="list-group-item"> <span class="badge">just
-					now</span> <i class="fa fa-fw fa-calendar"></i> Calendar updated
-			</a>
+
+	<form class="text-left">
+
+		<div class="form-group">
+			<label>Select Strategy</label>
+			<div class="checkbox">
+				<label> <input type="checkbox" value=""> TMA
+				</label>
+			</div>
+			<div class="checkbox">
+				<label> <input type="checkbox" value=""> BB
+				</label>
+			</div>
+			<div class="checkbox">
+				<label> <input type="checkbox" value=""> PB
+				</label>
+			</div>
 		</div>
-		<div class="text-right">
-			<a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-		</div>
+	</form>
+	<div class="text-right">
+		<a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
 	</div>
+</div>
 </div>
