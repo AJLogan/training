@@ -18,3 +18,6 @@
 <!-- <script src="../js/plugins/flot/flot-data.js"></script> -->
 <!-- <script src="js/quoteGraph.js"></script> -->
 <script src="js/summary.js"></script>
+
+<!-- RSS Parser -->
+<script src="js/rssParser.js"></script> 

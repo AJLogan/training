@@ -9,7 +9,7 @@
 	<div id="wrapper">
 		<%@include file="/DashboardModules/_navigation.jsp"%>
 		<!-- Top Menu Items -->
-		<%@include file="/DashboardModules/_topMenu.jsp"%>
+		<%-- <%@include file="/DashboardModules/_topMenu.jsp"%> --%>
 
 		<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 		<%@include file="/DashboardModules/_sidebarElements.jsp"%>
@@ -20,8 +20,16 @@
 
 				<!-- Page Heading -->
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-6">
 						<%@include file="/DashboardModules/_pageHeader.jsp"%>
+					</div>
+					<div class="col-lg-6">
+						<%@include file="/DashboardModules/_newsFeed.jsp"%>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12"><%@include
+							file="/DashboardModules/_breadcrumb.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -43,7 +51,6 @@
 					<div class="col-lg-6">
 						<div>
 							<%@include file="/DashboardModules/_equity.jsp"%>
-
 						</div>
 					</div>
 				</div>
@@ -70,6 +77,6 @@
 	</div>
 	<!-- /#wrapper -->
 	<%@include file="/DashboardModules/_jsResources.jsp"%>
-	
+
 </body>
 </html>

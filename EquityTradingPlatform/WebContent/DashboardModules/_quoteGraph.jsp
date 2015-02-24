@@ -19,7 +19,7 @@
 	</div>
 	<div class="panel-body">
 		<div class="flot-chart-content" id="debug">
-			<script type="text/javascript" src="test.js">
+			<!-- <script type="text/javascript" src="test.js"> -->
 			</script>
 			
 		</div>
