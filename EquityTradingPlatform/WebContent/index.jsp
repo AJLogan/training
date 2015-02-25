@@ -7,9 +7,13 @@
 </head>
 <body>
 	<%
-		if(request.getParameter("symbol")!=null)
-		{
+		if (request.getParameter("symbol") != null) {
 			session.setAttribute("sym", request.getParameter("symbol"));
+			ServletContext ctx = getServletContext();
+			MarketDataConsumer md = (MarketDataConsumer) ctx
+					.getAttribute("app");
+			md.addSymbol(request.getParameter("symbol"));
+			System.out.println(md.symbols.toString());
 		}
 	%>
 	<div id="wrapper">
@@ -34,8 +38,8 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12"><%@include
-							file="/DashboardModules/_breadcrumb.jsp"%>
+					<div class="col-lg-12">
+						<%@include file="/DashboardModules/_breadcrumb.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->

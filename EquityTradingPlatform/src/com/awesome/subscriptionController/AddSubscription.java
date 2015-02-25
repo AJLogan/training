@@ -19,8 +19,8 @@ import com.awesome.feeds.MarketDataConsumer;
 @WebServlet("/AddSubscription")
 public class AddSubscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//ServletContext ctx = getServletContext();
-	//MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
+	ServletContext ctx = getServletContext();
+	MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,9 +46,10 @@ public class AddSubscription extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("symbol") != null)
 		{
-			//md.addSymbol(request.getParameter("symbol"));
 			HttpSession svar = request.getSession();
 			svar.setAttribute("sym", request.getParameter("symbol"));
+			md.addSymbol(request.getParameter("symbol"));
+			System.out.println(md.symbols.toString());
 		}
 		else
 		{

@@ -9,41 +9,35 @@
 	</div>
 	<div class="panel-body">
 
-		<!-- HTML for SEARCH BAR -->
-		<div id="tfheader">
-			<form action="index.jsp" method="post">
-				<div class="form-group input-group">
-					<input id="symbol" type="text" class="form-control"> 
-					<span
-						class="input-group-btn">
-						<button class="btn btn-default" type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
-				</div>
-			</form>
-			
-			<!-- The table to show what has been selected -->
-			<div class="table-responsive">
-				<table class="table table-bordered table-hover">
-					<thead>
-						<tr>
-							<th>Stock</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>X /index.jsp</td>
-						</tr>
-						<tr>
-							<td><%if(session.getAttribute("sym") != null)
-								{
-									out.print(session.getAttribute("sym"));
-								}%></td>
-						</tr>
-					</tbody>
-				</table>
+		<form action="/EquityTradingPlatform/index.jsp" method="post">
+			<div class="form-group input-group">
+				<input name="symbol" id="symbol" type="text" class="form-control">
+				<span class="input-group-btn"><button class="btn btn-default"
+						type="submit">
+						<i class="fa fa-search"></i>
+					</button></span>
 			</div>
+		</form>
+
+		<!-- The table to show what has been selected -->
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Stock</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+						ServletContext ctx = getServletContext();
+						MarketDataConsumer md = (MarketDataConsumer) ctx
+								.getAttribute("app");
+						for (int i = 0; i < md.symbols.size(); i++) {
+							out.println("<tr><td>" + md.symbols.get(i) + "</td></tr>");
+						}
+					%>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

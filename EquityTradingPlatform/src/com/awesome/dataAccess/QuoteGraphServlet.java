@@ -23,34 +23,38 @@ import com.awesome.jsonparser.ParseToJson;
 public class QuoteGraphServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public QuoteGraphServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request,response);
+	public QuoteGraphServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		QuotesQueries qq = new QuotesQueries();
 		DatabaseUtils du = new DatabaseUtils();
 		try {
-			JSONArray quotes =this.getAsk();
+			JSONArray quotes = this.getAsk();
 			PrintWriter out = response.getWriter();
-			response.setContentType("application/json"); 
-			response.setCharacterEncoding("utf-8"); 
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
 			out.print(quotes);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -60,26 +64,24 @@ public class QuoteGraphServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ResultSet getAskPr(Connection cn) throws SQLException {
 		ServletContext ct = getServletContext();
 		int start = 0;
-		if(ct.getAttribute("start") != null)
-		{
-			start = (int)ct.getAttribute("start");
-		}
-		else
-		{
+		if (ct.getAttribute("start") != null) {
+			start = (int) ct.getAttribute("start");
+		} else {
 			ct.setAttribute("start", start);
 		}
 		start++;
 		ct.setAttribute("start", start);
-		String query = "select ticker, askPrice from EquityTrading.quotes limit 1000 offset " + start;
-		System.out.println(query);
+		String query = "select ticker, askPrice from EquityTrading.quotes limit 1000 offset "
+				+ start;
+//		System.out.println(query);
 		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
 		return rs;
 	}
-	
+
 	public JSONArray getAsk() throws JSONException, SQLException {
 		JSONArray jArray = new JSONArray();
 		Connection quotePanelCN = DatabaseUtils.setupDB();
@@ -89,13 +91,13 @@ public class QuoteGraphServlet extends HttpServlet {
 			ResultSet rs2 = this.getAskPr(quotePanelCN);
 			while (rs2.next()) {
 				ParseToJson qtj = new ParseToJson();
-				//jarray.add(qtj.convert(rs2));
+				// jarray.add(qtj.convert(rs2));
 				rs2.getFloat("askPrice");
-				//out.println(qtj.convert(rs2).toString());
+				// out.println(qtj.convert(rs2).toString());
 				jArray.put(rs2.getFloat("askPrice"));// Proper code
-				//jArray.put(rn.nextInt(150));
+				// jArray.put(rn.nextInt(150));
 			}// while
-				return jArray;
+			return jArray;
 		} catch (SQLException e) {
 			throw e;
 		}// catch
@@ -105,8 +107,5 @@ public class QuoteGraphServlet extends HttpServlet {
 			}
 		}
 	}
-	
-	
-	
 
 }

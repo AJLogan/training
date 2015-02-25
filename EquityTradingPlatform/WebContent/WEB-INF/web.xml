@@ -13,15 +13,5 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description>Test Index Servlet</description>
-    <display-name>Index</display-name>
-    <servlet-name>Index</servlet-name>
-    <jsp-file>/Index.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Index</servlet-name>
-    <url-pattern>/Index</url-pattern>
-    <url-pattern>/Foo</url-pattern>
-  </servlet-mapping>
+ 
 </web-app>
