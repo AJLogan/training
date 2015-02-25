@@ -12,13 +12,9 @@ public class DatabaseUtils {
 
 	public static Connection setupDB() {
 		String jdbcDriver = "com.mysql.jdbc.Driver";
-<<<<<<< HEAD
-		//String databaseUri = "jdbc:mysql://localhost:8889/EquityTrading?user=root&password=root";
-		 String databaseUri = "jdbc:mysql://localhost:3306/EquityTrading?user=root&password=password";
-=======
-		String databaseUri = "jdbc:mysql://localhost:8889/EquityTrading?user=root&password=root";
-//	 String databaseUri = "jdbc:mysql://localhost:3306/EquityTrading?user=root&password=password";
->>>>>>> branch 'master' of https://github.com/AJLogan/EquityTrading.git
+//		String databaseUri = "jdbc:mysql://localhost:8889/EquityTrading?user=root&password=root";
+	 String databaseUri = "jdbc:mysql://localhost:3306/EquityTrading?user=root&password=password";
+
 
 		try {
 			Class.forName(jdbcDriver);
