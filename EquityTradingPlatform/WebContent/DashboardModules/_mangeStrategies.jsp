@@ -27,4 +27,3 @@
 		<a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
 	</div>
 </div>
-</div>

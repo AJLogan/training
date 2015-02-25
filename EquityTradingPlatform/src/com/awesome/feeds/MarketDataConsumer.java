@@ -16,7 +16,7 @@ import com.awesome.dataAccess.GetData;
 public class MarketDataConsumer implements Runnable {
 	public Vector<String> symbols = new Vector<String>();
 	private GetData handler;
-	private Map<String, MarketDataHandler> handlerMap = new HashMap<String, MarketDataHandler>();
+	public Map<String, MarketDataHandler> handlerMap = new HashMap<String, MarketDataHandler>();
 
 	public MarketDataConsumer() {
 		this.handler = new GetData();
@@ -59,6 +59,7 @@ public class MarketDataConsumer implements Runnable {
 					if (handlerMap.containsKey(value.getKey())) {
 						MarketDataHandler strategy = handlerMap.get(symbols);
 						strategy = handlerMap.get(value.getKey());
+						System.out.println(strategy);
 						strategy.onMarketDataUpdate(symbols, quote.bidPrice, quote.bidSize, quote.askPrice, quote.askSize);
 					}
 				}
@@ -74,5 +75,4 @@ public class MarketDataConsumer implements Runnable {
 			}
 		}
 	}
-
 }

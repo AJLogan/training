@@ -8,24 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import com.awesome.feeds.MarketDataConsumer;
 
 /**
  * Servlet implementation class ManageSubscriptions
  */
-@WebServlet("/ManageSubscriptions")
-public class ManageSubscriptions extends HttpServlet {
+@WebServlet("/AddSubscription")
+public class AddSubscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ServletContext ctx = getServletContext();
-	MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
+	//ServletContext ctx = getServletContext();
+	//MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ManageSubscriptions() {
+	public AddSubscription() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -40,9 +41,19 @@ public class ManageSubscriptions extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * 
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("symbol") != null)
+		{
+			//md.addSymbol(request.getParameter("symbol"));
+			HttpSession svar = request.getSession();
+			svar.setAttribute("sym", request.getParameter("symbol"));
+		}
+		else
+		{
+			response.getWriter().print("Nothing set");
+		}
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 }

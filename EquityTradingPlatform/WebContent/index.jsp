@@ -6,6 +6,12 @@
 <%@include file="/DashboardModules/_head.jsp"%>
 </head>
 <body>
+	<%
+		if(request.getParameter("symbol")!=null)
+		{
+			session.setAttribute("sym", request.getParameter("symbol"));
+		}
+	%>
 	<div id="wrapper">
 		<%@include file="/DashboardModules/_navigation.jsp"%>
 		<!-- Top Menu Items -->
