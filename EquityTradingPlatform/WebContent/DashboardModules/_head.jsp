@@ -14,7 +14,7 @@
 <link href="css/markeeFeed.css" rel="stylesheet"/>
 
 <!-- Morris Charts CSS -->
-<!-- <link href="css/plugins/morris.css" rel="stylesheet"> -->
+<link href="css/plugins/morris.css" rel="stylesheet"> 
 
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"

@@ -36,10 +36,12 @@
 
 				<div class="row">
 					<div class="col-lg-6">
-						<%@include file="/DashboardModules/_stockChart.jsp"%>
+						<%-- <%@include file="/DashboardModules/_quoteGraph.jsp"%> --%>
+						<%-- <%@include file="/DashboardModules/_stockChart.jsp"%> --%>
+						<%@include file="/DashboardModules/_morris.jsp"%>
 					</div>
 					<div class="col-lg-6">
-						<%@include file="/DashboardModules/_summary.jsp"%>
+						<%-- <%@include file="/DashboardModules/_summary.jsp"%> --%>
 					</div>
 				</div>
 				<!-- /.row -->

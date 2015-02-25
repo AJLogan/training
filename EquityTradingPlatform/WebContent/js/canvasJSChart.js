@@ -58,7 +58,7 @@ window.onload = function() {
 		}
 	});
 
-	var updateInterval = 25;
+	var updateInterval = 300;
 	// initial value
 	var yValue1 = 50;
 	//var yValue2 = 604;
@@ -110,7 +110,7 @@ window.onload = function() {
 	};
 
 	// generates first set of dataPoints
-	updateChart(25);
+	updateChart(300);
 
 	// update chart after specified interval
 	setInterval(function() {

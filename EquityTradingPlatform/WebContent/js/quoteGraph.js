@@ -125,7 +125,7 @@ $(function() {
 		plot.setData(series);
 		//plot.setData(getQuotes);
 		plot.draw();
-	}, 600);
+	}, 1000000);
 
 	});
 
