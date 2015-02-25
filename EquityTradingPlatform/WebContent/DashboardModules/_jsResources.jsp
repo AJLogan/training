@@ -19,13 +19,8 @@
 <!-- <script src="js/quoteGraph.js"></script> -->
 <!-- <script src="js/summary.js"></script> -->
 
-<!-- RSS Parser -->
-<script src="js/rssParser.js"></script>
-
 <!-- HighCharts -->
 <script src="js/plugins/highcharts/highcharts.js"></script>
 <script src="js/plugins/highcharts/exporting.js"></script>
 
 <script src="js/quoteGraph.js"></script>
-
-<script src="js/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>

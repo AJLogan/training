@@ -43,7 +43,6 @@ public class MarketDataConsumer implements Runnable {
 			handlerMap.put(symbol, strategy);
 		} else
 			return;
-		// do with a list of handlers
 	}
 
 	public void removeHandler(String symbol, MarketDataHandler strategy) {
@@ -52,7 +51,6 @@ public class MarketDataConsumer implements Runnable {
 			handlerMap.remove(symbol, strategy);
 		} else
 			return;
-		// do with a list of handlers
 	}
 
 	@Override

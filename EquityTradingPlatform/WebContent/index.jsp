@@ -18,6 +18,7 @@
 			ServletContext ctx = getServletContext();
 			MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
 			md.removeSymbol(request.getParameter("sym"));
+			
 		}
 	%>
 	<div id="wrapper">
