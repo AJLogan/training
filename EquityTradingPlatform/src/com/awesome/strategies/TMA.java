@@ -22,8 +22,11 @@ import com.awesome.model.Quote;
  *
  */
 public class TMA implements MarketDataHandler, Runnable {
-	static float sAvg = 0;
-	static float lAvg = 0;
+	/*
+	 * Required fields
+	 */
+	static float shortMA = 0;
+	static float longMA = 0;
 	static boolean run = true;
 	static int count = 0;
 	static int sellCount = 0;
@@ -31,19 +34,17 @@ public class TMA implements MarketDataHandler, Runnable {
 	private static Queue<Float> squoteList = new LinkedList<Float>();
 	private static Queue<Float> lsquoteList = new LinkedList<Float>();
 
+	/**
+	 * Acts as the main method for the class so to speak
+	 */
 	@Override
 	public void onMarketDataUpdate(Vector<String> symbols, float bidPrice,
 			int bidSize, float askPrice, int askSize) {
-		System.out.println("tma");
+
 		GetData yahooReader = new GetData();
 		Vector<String> quotes = symbols;
-//		quotes.add("TESO");
-		// TESO TCO.SG
-		// TATN:RM
-		// FB
-		// YHOO
-		// IBMD
-		while (run) {
+
+		while(run){
 			// Get Quotes
 			Map<String, Quote> data;
 			try {
@@ -52,54 +53,45 @@ public class TMA implements MarketDataHandler, Runnable {
 				// This structure is good - keep it!
 				for (Map.Entry<String, Quote> entry : data.entrySet()) {
 					Quote quote = entry.getValue();
+					//output the stok to screen
 					System.out.printf("%s [%d x %.2f] x [%.2f x %d]\n",
-							entry.getKey(), quote.bidSize, quote.bidPrice,
-							quote.askPrice, quote.askSize);
+							entry.getKey(), quote.getBidSize(), quote.getBidPrice(),
+							quote.getAskPrice(), quote.getAskSize());
 
+					// Calculates the short moving avg
 					Thread shortThread = new Thread() {
 						public void run() {
-							sAvg = calcMA(quote.askPrice, 5, squoteList);
+							//set the spread for the short
+							shortMA = calcMA(quote, 5, squoteList, entry.getKey());
 						}
 					};
 
+					// Calculates the long moving avg
 					Thread longThread = new Thread() {
 						public void run() {
-							lAvg = calcMA(quote.askPrice, 20, lsquoteList);
+							//set the spread of the long
+							longMA = calcMA(quote, 20, lsquoteList, entry.getKey());
 						}
 					};
 
+					//start the threads to the MA
 					shortThread.start();
 					longThread.start();
+					// hardcode the dealer
 					String dealer = "james";
 
+					//Call the trigger and pass both the LMA and SMA to it
 					try {
-						trigger(sAvg, lAvg, entry, quote, dealer);
+						if((longMA !=0)&&(shortMA != 0)){
+							trigger(shortMA, longMA, entry, quote, dealer );							
+						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					count++;
+					
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	@Override
-	public void run() {
-		while (true) {
-			try {
-
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -114,123 +106,139 @@ public class TMA implements MarketDataHandler, Runnable {
 	 * @param spread
 	 * @param quoteList
 	 */
-	public synchronized static float calcMA(Float askPrice, int spread,
-			Queue<Float> quoteList) {
+	public synchronized float calcMA(Quote quote, int spread,
+			Queue<Float> quoteList, String symbol) {
 		float sum = 0;
-		float sMA = 0;
+		float movingAvg = 0;
 
 		try {
 			// The thread will define the spread of the SMA
 			Thread.sleep(500);
 			// define the spread here
 			if (quoteList.size() <= spread) {
-				quoteList.add(askPrice);
+				quoteList.add(quote.getAskPrice());
 				// System.out.println("Space");
 			} else {
-				// System.out.println("Full");
-				for (float data : quoteList) {
-					sum += data;
+				 //System.out.println("Full");
+				/*
+				 * If list is full then the sum of the list
+				 * is calculated
+				 */
+				for (float prices : quoteList) {
+					sum += prices;
 				}
-				sMA = sum / quoteList.size();
+					quoteList.poll();
+				/*
+				 * The average is then calculated after the for loop
+				 * has got the sum
+				 */
+				movingAvg = sum / quoteList.size();
 				if (spread < 6) {
-					// System.out.println("SMA = " + sMA);
+					System.err.println(symbol+" SMA = " + movingAvg);
 					quoteList.poll();
 
 				} else {
-					// System.out.println("LMA = " + sMA);
+					System.err.println(symbol+" LMA = " + movingAvg);
 					quoteList.poll();
 				}
+			
 			}
 		} catch (InterruptedException e) {
 			System.out.println(e);
 			e.printStackTrace();
 		}
-		return sMA;
+		return movingAvg;
 	}
 
-	private static double buyTotal = 0;
-	private static double sellTotal = 0;
+	/*
+	 * Required fields
+	 */
+	private  double buyTotal = 0;
+	private  double sellTotal = 0;
 
 	/**
 	 * Trigger executes the trade to the stock broker
 	 * 
-	 * @param sAvg
-	 * @param lAvg
+	 * @param shortMA
+	 * @param longMA
 	 * @param entry
 	 * @param quote
 	 * @param dealer
 	 * @throws SQLException
 	 */
-	public static void trigger(float sAvg, float lAvg,
+	public  void trigger(float shortMA, float longMA,
 			Map.Entry<String, Quote> entry, Quote quote, String dealer)
 			throws SQLException {
 
-		double buyPL = 0;
-		double sellPl = 0;
+		double buyPriceSize = 0;
+		double sellPriceSize = 0;
 		int buy = -1;
 		int sell = 1;
-		if (sAvg >= lAvg) {
+		if (shortMA >= longMA) {
 			System.out.println("Time to buy");
-			buyPL = queryDB(entry, quote, dealer, buy, quote.bidPrice,
-					quote.bidSize);
-			buyTotal += buyPL;
+			buyPriceSize = queryDB(entry, quote, dealer, buy, quote.getBidPrice(),
+					quote.getBidSize());
+			buyTotal += buyPriceSize;
 			buyCount++;
+
 		} else {
 			System.out.println("Time to sell");
-			sellPl = queryDB(entry, quote, dealer, sell, quote.askPrice,
-					quote.askSize);
-			sellTotal += sellPl;
-			++sellCount;
+			sellPriceSize = queryDB(entry, quote, dealer, sell, quote.getAskPrice(),
+					quote.getAskSize());
+			sellTotal += sellPriceSize;
+			sellCount++;
+
 		}
-		double pLTotal = (buyTotal + sellTotal);
+		count++;
+		double tradesValue = (buyTotal + sellTotal);
 
-		System.out.printf("Position 	: %.2f\n", pLTotal);
-		System.out.printf("Buy Total 	: %.2f\n", buyPL);
-		System.out.printf("Sell Total 	: %.2f\n", sellPl);
+		System.out.printf("Position 	: %.2f\n", tradesValue);
+		System.out.printf("Buy Total 	: %.2f\n", buyPriceSize);
+		System.out.printf("Sell Total 	: %.2f\n", sellPriceSize);
+		
 		System.out.println("_____________________________________");
-
+		
 		// Problems start here
-		exitCondition(buyTotal, sellTotal, pLTotal, quote);
+		exitCondition(buyTotal, sellTotal, quote, entry);
 	}
 
 	/**
 	 * Needs to continuously check the value difference between the askPrice and
 	 * the current askPrice
 	 * 
-	 * @param buyTotalTESO
+	 * @param buyTotal
 	 * @param sellTotal
-	 * @param pLTotal
+	 * @param tradesValue
 	 */
-	public static void exitCondition(double buyTotal, double sellTotal,
-			double pLTotal, Quote quote) {
+	public void exitCondition(double buyTotal, double sellTotal, Quote quote, Map.Entry<String, Quote> entry) {
 
-		// Gain = (SP) - (CP)
 		double equity = 0;
-		double boughtAt = (buyTotal);
-		double soldAt = (sellTotal);
-		double gain = boughtAt - soldAt;
-		double dif = (gain / (boughtAt + soldAt) / 2);
-		// double dif2 = (gain*100/boughtAt)/100;
-		System.out.printf("Percent : %.2f\n", dif);
-		// System.out.printf("Percent : %.2f\n",dif2);
-
-		if (dif > 1) {
+		double gain = buyTotal - sellTotal;
+		//double gainPercentage = (gain*100)/buyTotal;// =100%
+		double gainPercentage =(gain / (buyTotal + sellTotal) / 2);
+		//double lossPercentage = (loss)/buyTotal;// =-100%
+		
+		System.out.printf("Percent : %.2f\n", gainPercentage);
+		//System.out.printf("Percent : %.2f\n", lossPercentage);
+		
+		if (gainPercentage > 1) {
 			System.out.println("Profit of 1%");
-			run = false;
 			System.out.println("Start Sell Back");
+			run = false;
 			// worth of how much we sold
-			equity = (pLTotal * quote.bidPrice) - (pLTotal * quote.askPrice);
+			equity = sellTotal + buyTotal;
 			System.out.printf("Profit : %.2f\n", equity);
+			System.out.println(entry.getKey());
 			System.out.println("Total Trades : " + count);
 			System.out.println("Total Buys : " + buyCount);
 			System.out.println("Total Sells : " + sellCount);
 
-		} else if (dif < -1) {
+		} else if (gainPercentage < -1) {
 			System.out.println("Loss of -1%");
 			run = false;
 			System.out.println("Start Buy Back");
 			// worth of how much we sold
-			equity = (pLTotal * quote.askPrice) - (pLTotal * quote.bidPrice);
+			equity = buyTotal + sellTotal;
 			System.out.printf("Profit : %.2f\n", equity);
 			System.out.println("Total Trades : " + count);
 			System.out.println("Total Buys : " + buyCount);
@@ -240,7 +248,7 @@ public class TMA implements MarketDataHandler, Runnable {
 		}
 	}
 
-	private static float queryDB(Map.Entry<String, Quote> entry, Quote quote,
+	private float queryDB(Map.Entry<String, Quote> entry, Quote quote,
 			String dealer, int type, float price, float size)
 			throws SQLException { // }
 		Connection cn = DatabaseUtils.setupDB();
@@ -255,7 +263,7 @@ public class TMA implements MarketDataHandler, Runnable {
 					+ "','"
 					+ size
 					+ "','"
-					+ quote.askPrice
+					+ quote.getAskPrice()
 					+ "','" + dealer + "','" + price * size * type + "')";
 			DatabaseUtils.executeUpdate(cn, query);
 			System.out.println("Trade made!");
@@ -272,5 +280,12 @@ public class TMA implements MarketDataHandler, Runnable {
 		}
 		// issue with quote.volume
 		return price * size * type;
+	}
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
