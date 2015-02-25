@@ -46,9 +46,7 @@
 
 				<div class="row">
 					<div class="col-lg-6">
-						<%-- <%@include file="/DashboardModules/_quoteGraph.jsp"%> --%>
-						<%-- <%@include file="/DashboardModules/_stockChart.jsp"%> --%>
-						<%@include file="/DashboardModules/_morris.jsp"%>
+						<%@include file="/DashboardModules/_quoteGraph.jsp"%>
 					</div>
 					<div class="col-lg-6">
 						<%-- <%@include file="/DashboardModules/_summary.jsp"%> --%>

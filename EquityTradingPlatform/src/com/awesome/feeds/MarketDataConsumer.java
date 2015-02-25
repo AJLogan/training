@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import com.awesome.dataAccess.GetData;
+import com.awesome.model.Quote;
 
 /**
  * @author andrew
@@ -52,15 +53,15 @@ public class MarketDataConsumer implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				Map<String, GetData.Quote> data = handler.getQuote(symbols);
-				for (Map.Entry<String, GetData.Quote> value : data.entrySet()) {
-					GetData.Quote quote = value.getValue();
+				Map<String, Quote> data = handler.getQuote(symbols);
+				for (Map.Entry<String, Quote> value : data.entrySet()) {
+					Quote quote = value.getValue();
 					// THIS DOESNT CONTAIN ANYTHING YET!!!
 					if (handlerMap.containsKey(value.getKey())) {
 						MarketDataHandler strategy = handlerMap.get(symbols);
 						strategy = handlerMap.get(value.getKey());
 						System.out.println(strategy);
-						strategy.onMarketDataUpdate(symbols, quote.bidPrice, quote.bidSize, quote.askPrice, quote.askSize);
+						strategy.onMarketDataUpdate(symbols, quote.getBidPrice(), quote.getBidSize(), quote.getAskPrice(), quote.getAskSize());
 					}
 				}
 			} catch (Exception e1) {

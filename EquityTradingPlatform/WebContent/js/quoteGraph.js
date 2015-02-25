@@ -1,131 +1,105 @@
-// Flot Chart Dynamic Chart
+var openPrice = [];
 
-$(function() {
-	//$.get('QuoteGraphServlet',function(responseJson) {
-		//$('#quoteGraph').text(responseText);
-   // var items = responseText;
+$(document).ready(function() {
 
-	var container = $("#quoteGraph");
-	var debug = $("#debug");
+	// $("#showTable").click(function(event){
+	// setInterval("function();",10000);
+	$.get('PopulateGraph', function(responseJson) {
+		if (responseJson != null) {
+			// $("#countrytable").find("tr:gt(0)").remove();
+			// var table1 = $("#countrytable");
+			$.each(responseJson, function(key, value) {
 
-	// Determine how many data points to keep based on the placeholder's initial
-	// size;
-	// this gives us a nice high-res plot while avoiding more than one point per
-	// pixel.
-
-	var maximum = container.outerWidth();
-
-	//
-
-	var data = [];
-
-	function getRandomData() {
-
-		if (data.length) {
-			data = data.slice(1);
-		}
-
-		while (data.length < maximum) {
-			var previous = data.length ? data[data.length - 1] : 50;
-			var y = previous + Math.random() * 10 - 5;
-			data.push(y < 0 ? 0 : y > 100 ? 100 : y);
-		}
-
-		// zip the generated y values with the x values
-
-		var res = [];
-		for (var i = 0; i < data.length; ++i) {
-			res.push([ i, data[i] ])
-		}
-
-		return res;
-	}
-	
-	function getQuotes() {
-		if (data.length) {
-			data = data.slice(1);
-		}
-		$.ajax({
-	 		url: 'QuoteGraphServlet',
-	 		success: function(test){
-	 			data = test;
-	 		}
+				openPrice = value['openPR'];
 			});
-		//alert(data[0])
-		data = data.slice(1,maximum);
-		var res = [];
-		for (var i = 0; i < data.length; ++i) {
-			res.push([ i, data[i] ])
+
 		}
-
-		return res;
-	
-	}
-
-	series = [ {
-		data : getQuotes(),
-		lines : {
-			fill : true
-		}
-	} ];
-
-	//
-
-	var plot = $
-			.plot(
-					container,
-					series,
-					{
-						grid : {
-							borderWidth : 1,
-							minBorderMargin : 20,
-							labelMargin : 10,
-							backgroundColor : {
-								colors : [ "#fff", "#e4f4f4" ]
-							},
-							margin : {
-								top : 8,
-								bottom : 20,
-								left : 20
-							},
-							markings : function(axes) {
-								var markings = [];
-								var xaxis = axes.xaxis;
-								for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-									markings.push({
-										xaxis : {
-											from : x,
-											to : x + xaxis.tickSizex
-										},
-										color : "rgba(232, 232, 255, 0.2)"
-									});
-								}
-								return markings;
-							}
-						},
-						xaxis : {
-							tickFormatter : function() {
-								return "";
-							}
-						},
-						yaxis : {
-							min : 125,
-							max : 135
-						},
-						legend : {
-							show : true
-						}
-					});
-
-	// Update the random dataset at 25FPS for a smoothly-animating chart
-
-	setInterval(function updateRandom() {
-		series[0].data = getQuotes();
-		//series= getQuotes();
-		plot.setData(series);
-		//plot.setData(getQuotes);
-		plot.draw();
-	}, 1000000);
-
 	});
+});
 
+$(document).ready(
+		function() {
+			Highcharts.setOptions({
+				global : {
+					useUTC : false
+				}
+			});
+
+			$('#quoteGraph')
+					.highcharts(
+							{
+								chart : {
+									type : 'line',
+									animation : Highcharts.svg, // don't animate
+									// in old IE
+									marginRight : 10,
+									events : {
+										load : function() {
+
+											// set up the updating of the chart
+											// each second
+											var series = this.series[0];
+											setInterval(function() {
+												var x = (new Date()).getTime(), // current
+												// time
+												y = openPrice;
+												series.addPoint([ x, y ], true,
+														true);
+											}, 1000);
+										}
+									}
+								},
+								title : {
+									text : 'Live random data'
+								},
+								xAxis : {
+									type : 'datetime',
+									tickPixelInterval : 150
+								},
+								yAxis : {
+									title : {
+										text : 'Value'
+									},
+									plotLines : [ {
+										value : 0,
+										width : 1,
+										color : '#808080'
+									} ]
+								},
+								tooltip : {
+									formatter : function() {
+										return '<b>'
+												+ this.series.name
+												+ '</b><br/>'
+												+ Highcharts.dateFormat(
+														'%Y-%m-%d %H:%M:%S',
+														this.x)
+												+ '<br/>'
+												+ Highcharts.numberFormat(
+														this.y, 2);
+									}
+								},
+								legend : {
+									enabled : false
+								},
+								exporting : {
+									enabled : false
+								},
+								series : [ {
+									name : 'Random data',
+									data : (function() {
+										// generate an array of random data
+										var data = [], time = (new Date())
+												.getTime(), i;
+
+										for (i = -19; i <= 0; i += 1) {
+											data.push({
+												x : time + i * 1000,
+												y : Math.random()
+											});
+										}
+										return data;
+									}())
+								} ]
+							});
+		});

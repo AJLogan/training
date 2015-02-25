@@ -13,19 +13,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
+import com.awesome.model.Quote;
+
 // Get quote data for a list of symbols and returns it in a Map
 
 public class GetData {
-	// Quote Data class
-	public class Quote {
-		public float askPrice;
-		public float bidPrice;
-		public int askSize;
-		public int bidSize;
-
-		public float closePrice;
-		public int volume;
-	}
 
 	public Map<String, Quote> getQuote(Vector<String> stocks) throws Exception {
 		// Build the URL
@@ -54,23 +46,20 @@ public class GetData {
 				try {
 					if (fields.length == 6) {
 
-						quote.askPrice = Float.parseFloat(fields[0]);
-						quote.askSize = Integer.parseInt(fields[1]);
-						quote.bidPrice = Float.parseFloat(fields[2]);
-						quote.bidSize = Integer.parseInt(fields[3]);
-						quote.closePrice = Float.parseFloat(fields[4]);
-						quote.volume = Integer.parseInt(fields[5]);
+						quote.setAskPrice(Float.parseFloat(fields[0]));
+						quote.setAskSize(Integer.parseInt(fields[1]));
+						quote.setBidPrice(Float.parseFloat(fields[2]));
+						quote.setBidSize(Integer.parseInt(fields[3]));
+						quote.setClosePrice(Float.parseFloat(fields[4]));
+						quote.setVolume(Integer.parseInt(fields[5]));
 
 					} else {
-						quote.askPrice = Float.parseFloat(fields[0]);
-						quote.bidPrice = Float.parseFloat(fields[3]);
-						quote.closePrice = Float.parseFloat(fields[6]);
-						quote.volume = Integer.parseInt(fields[7]);
-
-						quote.askSize = (1000 * Integer.parseInt(fields[1]) + Integer
-								.parseInt(fields[2]));
-						quote.bidSize = (1000 * Integer.parseInt(fields[4]) + Integer
-								.parseInt(fields[5]));
+						quote.setAskPrice(Float.parseFloat(fields[0]));
+						quote.setBidPrice(Float.parseFloat(fields[3]));
+						quote.setClosePrice(Float.parseFloat(fields[6]));
+						quote.setVolume(Integer.parseInt(fields[7]));
+						quote.setAskSize((1000 * Integer.parseInt(fields[1]) + Integer.parseInt(fields[2])));
+						quote.setBidSize((1000 * Integer.parseInt(fields[4]) + Integer.parseInt(fields[5])));
 
 					}
 					// Insert quote with stock as key
@@ -121,17 +110,17 @@ public class GetData {
 			String query = "insert into quotes(ticker, askPrice, askSize, bidPrice, bidSize, closePrice, volume) values ('"
 					+ quote.getKey()
 					+ "',"
-					+ quote.getValue().askPrice
+					+ quote.getValue().getAskPrice()
 					+ ","
-					+ quote.getValue().askSize
+					+ quote.getValue().getAskSize()
 					+ ","
-					+ quote.getValue().bidPrice
+					+ quote.getValue().getBidPrice()
 					+ ","
-					+ quote.getValue().bidSize
+					+ quote.getValue().getBidSize()
 					+ ","
-					+ quote.getValue().closePrice
+					+ quote.getValue().getClosePrice()
 					+ ","
-					+ quote.getValue().volume + ")";
+					+ quote.getValue().getVolume() + ")";
 			DatabaseUtils.executeUpdate(cn, query);
 
 		} catch (SQLException e) {

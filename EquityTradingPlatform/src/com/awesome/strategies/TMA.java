@@ -14,8 +14,8 @@ import java.util.Vector;
 
 import com.awesome.dataAccess.DatabaseUtils;
 import com.awesome.dataAccess.GetData;
-import com.awesome.dataAccess.GetData.Quote;
 import com.awesome.feeds.MarketDataHandler;
+import com.awesome.model.Quote;
 
 /**
  * @author james

@@ -5,8 +5,8 @@
 <script src="js/bootstrap.min.js"></script>
 
 <!-- Morris Charts JavaScript -->
-<script src="js/plugins/morris/raphael.min.js"></script>
-<script src="js/plugins/morris/morris.js"></script>
+<!-- <script src="js/plugins/morris/raphael.min.js"></script>
+<script src="js/plugins/morris/morris.js"></script> -->
 <!-- <script src="../js/plugins/morris/morris-data.js"></script> -->
 
 <!-- Flot Charts JavaScript -->
@@ -20,9 +20,10 @@
 <!-- <script src="js/summary.js"></script> -->
 
 <!-- RSS Parser -->
-<script src="js/rssParser.js"></script> 
+<script src="js/rssParser.js"></script>
 
-<!-- <script src="js/canvasjs.js"></script>
-<script src="js/canvasJSChart.js"></script> -->
+<!-- HighCharts -->
+<script src="js/plugins/highcharts/highcharts.js"></script>
+<script src="js/plugins/highcharts/exporting.js"></script>
 
- <script src="js/morrisDraw.js"></script> 
+<script src="js/quoteGraph.js"></script>
