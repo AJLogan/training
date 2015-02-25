@@ -3,7 +3,7 @@
 		<h3 class="panel-title">Bloomberg TV</h3>
 	</div>
 	<div class="panel-body">
-		<div class="video-embed">
+		<%-- <div class="video-embed">
 			<div id="bbg-video-player-US"
 				class="video-js vjs-default-skin vjs-playing"
 				style="width: 300px; height: 150px;">
@@ -173,6 +173,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 	</div>
 </div>

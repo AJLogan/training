@@ -49,7 +49,6 @@ public class AddSubscription extends HttpServlet {
 			HttpSession svar = request.getSession();
 			svar.setAttribute("sym", request.getParameter("symbol"));
 			md.addSymbol(request.getParameter("symbol"));
-			System.out.println(md.symbols.toString());
 		}
 		else
 		{

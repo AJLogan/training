@@ -4,26 +4,16 @@
 			<i class="fa fa-clock-o fa-fw"></i> Manage Strategies
 		</h3>
 	</div>
+	<div class="panel-body">
 
-	<form class="text-left">
-
-		<div class="form-group">
-			<label>Select Strategy</label>
-			<div class="checkbox">
-				<label> <input type="checkbox" value=""> TMA
-				</label>
+		<form class="text-left">
+			<div class="form-group">
+				<label>Select Strategy</label>
+				<div class="checkbox">
+					<input type="checkbox" checked data-toggle="toggle"
+						data-on="Moving Average" data-off="Price Breakout">
+				</div>
 			</div>
-			<div class="checkbox">
-				<label> <input type="checkbox" value=""> BB
-				</label>
-			</div>
-			<div class="checkbox">
-				<label> <input type="checkbox" value=""> PB
-				</label>
-			</div>
-		</div>
-	</form>
-	<div class="text-right">
-		<a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+		</form>
 	</div>
 </div>

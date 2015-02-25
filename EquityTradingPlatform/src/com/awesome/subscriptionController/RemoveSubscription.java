@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.awesome.feeds.MarketDataConsumer;
 
@@ -43,7 +44,17 @@ public class RemoveSubscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		md.removeSymbol(request.getParameter("symbol"));
+		if(request.getParameter("symbol") != null)
+		{
+			HttpSession svar = request.getSession();
+			svar.setAttribute("sym", request.getParameter("symbol"));
+			md.removeSymbol(request.getParameter("symbol"));
+		}
+		else
+		{
+			response.getWriter().print("Nothing set");
+		}
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 
 	}
 }

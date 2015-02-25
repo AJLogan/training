@@ -24,11 +24,17 @@ public class MarketDataConsumer implements Runnable {
 	}
 
 	public void addSymbol(String symbol) {
-		symbols.add(symbol);
+		if (symbols.contains(symbol) != true) {
+			symbols.add(symbol);
+		} else
+			return;
 	}
 
 	public void removeSymbol(String symbol) {
-		symbols.remove(symbols.indexOf(symbol));
+		if (symbols.size() != 0) {
+			symbols.remove(symbols.indexOf(symbol));
+		} else
+			return;
 	}
 
 	public void addHandler(String symbol, MarketDataHandler strategy) {
@@ -61,7 +67,9 @@ public class MarketDataConsumer implements Runnable {
 						MarketDataHandler strategy = handlerMap.get(symbols);
 						strategy = handlerMap.get(value.getKey());
 						System.out.println(strategy);
-						strategy.onMarketDataUpdate(symbols, quote.getBidPrice(), quote.getBidSize(), quote.getAskPrice(), quote.getAskSize());
+						strategy.onMarketDataUpdate(symbols,
+								quote.getBidPrice(), quote.getBidSize(),
+								quote.getAskPrice(), quote.getAskSize());
 					}
 				}
 			} catch (Exception e1) {

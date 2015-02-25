@@ -1,9 +1,6 @@
-
-
-
 <div class="row">
 	<div class="col-lg-6">
-		<%-- <%@include file="/DashboardModules/_bloombergTV.jsp"%> --%>
+		<%@include file="/DashboardModules/_bloombergTV.jsp"%>
 	</div>
 	<div class="col-lg-6">
 		<div class="panel panel-primary">
@@ -25,5 +22,4 @@
 		</div>
 	</div>
 </div>
-
 <!-- /.row -->

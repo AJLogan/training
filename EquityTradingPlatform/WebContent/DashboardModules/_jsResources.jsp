@@ -27,3 +27,5 @@
 <script src="js/plugins/highcharts/exporting.js"></script>
 
 <script src="js/quoteGraph.js"></script>
+
+<script src="js/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
