@@ -3,6 +3,7 @@ package com.awesome.graphing;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.awesome.feeds.MarketDataConsumer;
 import com.awesome.model.Quote;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -24,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 public class PopulateGraph extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public int offset;
+	public Vector<String> ticker;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,8 +43,14 @@ public class PopulateGraph extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext ctx = request.getServletContext();
+		MarketDataConsumer md = (MarketDataConsumer) ctx
+				.getAttribute("app");
 		ArrayList<Quote> data = new ArrayList<Quote>();
 		int off = 0;
+		ticker = null;
+		if (md.symbols != null) {			
+			ticker = md.symbols;
+		}
 		if (ctx.getAttribute("offset") != null) {
 			off = (int) ctx.getAttribute("offset");
 			off++;
@@ -49,7 +58,7 @@ public class PopulateGraph extends HttpServlet {
 			off++;
 		}
 		ctx.setAttribute("offset", off);
-		data = FetchData.getGraphData(off);
+		data = FetchData.getGraphData(ticker, off);
 		Gson gson = new Gson();
 		JsonElement element = gson.toJsonTree(data,
 				new TypeToken<List<Quote>>() {

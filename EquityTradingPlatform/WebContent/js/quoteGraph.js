@@ -30,15 +30,12 @@ $(document).ready(
 									marginRight : 10,
 									events : {
 										load : function() {
-
 											// set up the updating of the chart
 											// each second
 											var series = this.series[0];
-
 											setInterval(function() {
 												getData();
-												var x = (new Date()).getTime(), // current
-																				// time
+												var x = (new Date()).getTime(),
 												y = askPrice;
 												series.addPoint([ x, y ], true,
 														true);
