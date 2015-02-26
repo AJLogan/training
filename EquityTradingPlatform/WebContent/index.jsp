@@ -10,15 +10,17 @@
 		if (request.getParameter("symbol") != null) {
 			session.setAttribute("sym", request.getParameter("symbol"));
 			ServletContext ctx = getServletContext();
-			MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
+			MarketDataConsumer md = (MarketDataConsumer) ctx
+					.getAttribute("app");
 			md.addSymbol(request.getParameter("symbol"));
 		}
 
 		if (request.getParameter("sym") != null) {
 			ServletContext ctx = getServletContext();
-			MarketDataConsumer md = (MarketDataConsumer) ctx.getAttribute("app");
+			MarketDataConsumer md = (MarketDataConsumer) ctx
+					.getAttribute("app");
 			md.removeSymbol(request.getParameter("sym"));
-			
+
 		}
 	%>
 	<div id="wrapper">
@@ -39,11 +41,12 @@
 						<%@include file="/DashboardModules/_pageHeader.jsp"%>
 					</div>
 					<div class="col-lg-6">
-						<%@include file="/DashboardModules/_newsFeed.jsp"%>
+						<%-- <%@include file="/DashboardModules/_newsFeed.jsp"%> --%>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
+						<div id="test"></div>
 						<%@include file="/DashboardModules/_breadcrumb.jsp"%>
 					</div>
 				</div>
@@ -65,7 +68,7 @@
 							<%@include file="/DashboardModules/_tradePanel.jsp"%>
 						</div>
 						<div class="col-lg-4">
-						<%@include file="/DashboardModules/_mangeStrategies.jsp"%>
+							<%@include file="/DashboardModules/_mangeStrategies.jsp"%>
 							<%@include file="/DashboardModules/_manualTrader.jsp"%>
 						</div>
 					</div>

@@ -1,20 +1,37 @@
-var openPrice = [];
+var askPrice;
+var bidPrice;
+
+// $(document).ready(function() {
+//
+// // $("#showTable").click(function(event){
+// // setInterval("function();",10000);
+// $.get('PopulateGraph', function(responseJson) {
+// if (responseJson != null) {
+// // $("#countrytable").find("tr:gt(0)").remove();
+// // var table1 = $("#countrytable");
+// $.each(responseJson, function(key, value) {
+//
+// openPrice = value['openPR'];
+// });
+//
+// }
+// });
+// });
 
 $(document).ready(function() {
-
-	// $("#showTable").click(function(event){
-	// setInterval("function();",10000);
 	$.get('PopulateGraph', function(responseJson) {
 		if (responseJson != null) {
-			// $("#countrytable").find("tr:gt(0)").remove();
-			// var table1 = $("#countrytable");
 			$.each(responseJson, function(key, value) {
 
-				openPrice = value['openPR'];
-			});
+				askPrice = value['askPrice'];
+				bidPrice = value['bidPrice'];
 
+				var element = document.getElementById("test");
+				element.innerHTML = askPrice;
+			});
 		}
 	});
+
 });
 
 $(document).ready(
@@ -42,7 +59,8 @@ $(document).ready(
 											setInterval(function() {
 												var x = (new Date()).getTime(), // current
 												// time
-												y = openPrice;
+												y = askPrice;
+												// y = bidprice;
 												series.addPoint([ x, y ], true,
 														true);
 											}, 1000);
@@ -50,7 +68,7 @@ $(document).ready(
 									}
 								},
 								title : {
-									text : 'Live random data'
+									text : 'Quote Data'
 								},
 								xAxis : {
 									type : 'datetime',
@@ -86,7 +104,7 @@ $(document).ready(
 									enabled : false
 								},
 								series : [ {
-									name : 'Random data',
+									name : 'Quote Data',
 									data : (function() {
 										// generate an array of random data
 										var data = [], time = (new Date())
@@ -95,7 +113,7 @@ $(document).ready(
 										for (i = -19; i <= 0; i += 1) {
 											data.push({
 												x : time + i * 1000,
-												y : Math.random()
+												y : askPrice
 											});
 										}
 										return data;

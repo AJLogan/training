@@ -3,6 +3,7 @@ package com.awesome.graphing;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +40,15 @@ public class PopulateGraph extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Quote> data = new ArrayList<Quote>();
 		data = FetchData.getGraphData();
+		ArrayList<Float> askPrices = new ArrayList<Float>();
+		for (int i = 0; i < 300; i ++){
+			askPrices.add(data.get(i).getAskPrice());
+//			System.out.println(askPrices.toString());
+			}
+		
+
+		
+		
 		Gson gson = new Gson();
 		JsonElement element = gson.toJsonTree(data,
 				new TypeToken<List<Quote>>() {
@@ -46,5 +56,6 @@ public class PopulateGraph extends HttpServlet {
 		JsonArray jsonArray = element.getAsJsonArray();
 		response.setContentType("application/json");
 		response.getWriter().print(jsonArray);
+		System.out.println(jsonArray);
 	}
 }
