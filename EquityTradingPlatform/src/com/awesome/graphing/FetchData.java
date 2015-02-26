@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import com.awesome.dataAccess.DatabaseUtils;
 import com.awesome.model.Quote;
 
 public class FetchData {
-	public static ArrayList<Quote> getGraphData() {
+	public static ArrayList<Quote> getGraphData(int offset) {
 		ArrayList<Quote> dataList = new ArrayList<Quote>();
 		ResultSet rs = null;
-		String query = "SELECT askPrice from quotes limit 300;";
+		String query = "SELECT askPrice from quotes  where ticker = 'BARC.L' limit 1 offset " + offset + ";";
 		Connection cn = DatabaseUtils.setupDB();
-
 		try {
 			rs = DatabaseUtils.executeQuery(cn, query);
 			while (rs.next()) {
@@ -23,8 +23,14 @@ public class FetchData {
 				dataList.add(data);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if (cn != null)
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return dataList;
 	}

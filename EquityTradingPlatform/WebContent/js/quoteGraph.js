@@ -1,35 +1,16 @@
 var askPrice;
 var bidPrice;
 
-// $(document).ready(function() {
-//
-// // $("#showTable").click(function(event){
-// // setInterval("function();",10000);
-// $.get('PopulateGraph', function(responseJson) {
-// if (responseJson != null) {
-// // $("#countrytable").find("tr:gt(0)").remove();
-// // var table1 = $("#countrytable");
-// $.each(responseJson, function(key, value) {
-//
-// openPrice = value['openPR'];
-// });
-//
-// }
-// });
-// });
-
-$(document).ready(function() {
+function getData() {
 	$.get('PopulateGraph', function(responseJson) {
 		if (responseJson != null) {
 			$.each(responseJson, function(key, value) {
-
 				askPrice = value['askPrice'];
 				bidPrice = value['bidPrice'];
 			});
 		}
 	});
-
-});
+};
 
 $(document).ready(
 		function() {
@@ -53,14 +34,16 @@ $(document).ready(
 											// set up the updating of the chart
 											// each second
 											var series = this.series[0];
-											setInterval(function() {
-												var x = (new Date()).getTime(), // current
-												// time
-												y = askPrice;
 
+											setInterval(function() {
+												getData();
+												var x = (new Date()).getTime(), // current
+																				// time
+												y = askPrice;
 												series.addPoint([ x, y ], true,
 														true);
-											}, 1000);
+											}, 500);
+
 										}
 									}
 								},
@@ -119,15 +102,15 @@ $(document).ready(
 										return data;
 									}())
 								} ]
-//								,
-//								series : [ {
-//									name : 'Bid Price',
-//									data : (function() {
-//										// generate an array of random data
-//										var data2 = [];
-//										data2.push(bidPrice);
-//										return data2;
-//									}())
-//								} ]
+							// ,
+							// series : [ {
+							// name : 'Bid Price',
+							// data : (function() {
+							// // generate an array of random data
+							// var data2 = [];
+							// data2.push(bidPrice);
+							// return data2;
+							// }())
+							// } ]
 							});
 		});

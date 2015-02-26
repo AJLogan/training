@@ -48,8 +48,8 @@ public class Startup implements ServletContextListener {
 		executor.execute(twoPoint);
 		executor.execute(breakout);
 
-		app.addSymbol("YHOO");
-		//app.addSymbol("AAPL");
+		app.addSymbol("BARC.L");
+		// app.addSymbol("AAPL");
 		//app.addHandler("AAPL", twoPoint);
 		// app.addHandler("YHOO", twoPoint);
 		// app.addHandler("AAPL", breakout);

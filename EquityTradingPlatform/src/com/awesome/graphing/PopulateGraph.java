@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 @WebServlet("/PopulateGraph")
 public class PopulateGraph extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public int offset;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -37,8 +39,17 @@ public class PopulateGraph extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		ServletContext ctx = request.getServletContext();
 		ArrayList<Quote> data = new ArrayList<Quote>();
-		data = FetchData.getGraphData();
+		int off = 0;
+		if (ctx.getAttribute("offset") != null) {
+			off = (int) ctx.getAttribute("offset");
+			off++;
+		} else {
+			off++;
+		}
+		ctx.setAttribute("offset", off);
+		data = FetchData.getGraphData(off);
 		Gson gson = new Gson();
 		JsonElement element = gson.toJsonTree(data,
 				new TypeToken<List<Quote>>() {
