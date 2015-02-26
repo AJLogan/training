@@ -26,15 +26,16 @@ public class TMA implements MarketDataHandler, Runnable {
 	/*
 	 * Required fields
 	 */
-	static float shortMA = 0;
-	static float longMA = 0;
-	static boolean run = true;
-	static boolean pullTrigger = false;
-	static int count = 0;
-	static int sellCount = 0;
-	static int buyCount = 0;
-	private static Queue<Float> squoteList = new LinkedList<Float>();
-	private static Queue<Float> lsquoteList = new LinkedList<Float>();
+	private float shortMA;
+	private float longMA;
+	private boolean run = true;
+	private boolean pullTrigger = false;
+	private int count = 0;
+	private int sellCount = 0;
+	private float shortAvg = 0;
+	private int buyCount = 0;
+	private  Queue<Float> squoteList = new LinkedList<Float>();
+	private  Queue<Float> lsquoteList = new LinkedList<Float>();
 
 	/**
 	 * Acts as the main method for the class so to speak
@@ -65,7 +66,7 @@ public class TMA implements MarketDataHandler, Runnable {
 					Thread shortThread = new Thread() {
 						public void run() {
 							// set the spread for the short
-							shortMA = calcMA(quote, 5, squoteList,
+							shortMA = calcSMA(quote, 5, squoteList,
 									entry.getKey());
 							// OUTPUT HERE
 						}
@@ -75,7 +76,7 @@ public class TMA implements MarketDataHandler, Runnable {
 					Thread longThread = new Thread() {
 						public void run() {
 							// set the spread of the long
-							longMA = calcMA(quote, 20, lsquoteList,
+							longMA = calcLMA(quote, 20, lsquoteList,
 									entry.getKey());
 							// OUTPUT HERE
 						}
@@ -86,7 +87,9 @@ public class TMA implements MarketDataHandler, Runnable {
 					longThread.start();
 					// hardcode the dealer
 					String dealer = "james";
-
+					if (shortMA != 0) {
+						queryMA(shortMA, longMA);
+					}
 					// Call the trigger and pass both the LMA and SMA to it
 
 					try {
@@ -113,48 +116,99 @@ public class TMA implements MarketDataHandler, Runnable {
 	 * @param spread
 	 * @param quoteList
 	 */
-	public synchronized float calcMA(Quote quote, int spread,
-			Queue<Float> quoteList, String symbol) {
+	public float calcSMA(Quote quote, int spread, Queue<Float> quoteList,
+			String symbol) {
 		float sum = 0;
-		float movingAvg = 0;
 
-		try {
-			// The thread will define the spread of the SMA
-			Thread.sleep(500);
-			// define the spread here
-			if (quoteList.size() <= spread) {
-				quoteList.add(quote.getAskPrice());
-				// System.out.println("Space");
-			} else {
-				// System.out.println("Full");
-				/*
-				 * If list is full then the sum of the list is calculated
-				 */
-				for (float prices : quoteList) {
-					sum += prices;
-				}
 
-				/*
-				 * The average is then calculated after the for loop has got the
-				 * sum
-				 */
-				movingAvg = sum / quoteList.size();
-				if (spread < 6) {
-					System.err.println(symbol + " SMA = " + movingAvg);
-					quoteList.poll();
-
-				} else {
-					System.err.println(symbol + " LMA = " + movingAvg);
-					pullTrigger = true;
-					quoteList.poll();
-				}
-
+		if (quoteList.size() <= spread) {
+			quoteList.add(quote.getAskPrice());
+			// System.out.println("Space");
+		} else {
+			// System.out.println("Full");
+			/*
+			 * If list is full then the sum of the list is calculated
+			 */
+			for (float prices : quoteList) {
+				sum += prices;
 			}
-		} catch (InterruptedException e) {
-			System.out.println(e);
-			e.printStackTrace();
+
+			/*
+			 * The average is then calculated after the for loop has got the sum
+			 */
+			shortAvg = sum / quoteList.size();
+			quoteList.poll();
+
 		}
-		return movingAvg;
+
+		return shortAvg;
+	}
+
+	/**
+	 * Calculates the moving averages This will be used as the input for the
+	 * graph
+	 * 
+	 * @param askPrice
+	 * @param spread
+	 * @param quoteList
+	 */
+	public float calcLMA(Quote quote, int spread, Queue<Float> quoteList,
+			String symbol) {
+		float sum = 0;
+		
+		// The thread will define the spread of the SMA
+		// Thread.sleep(500);
+		// define the spread here
+		if (quoteList.size() <= spread) {
+			quoteList.add(quote.getAskPrice());
+			// System.out.println("Space");
+		} else {
+			// System.out.println("Full");
+			/*
+			 * If list is full then the sum of the list is calculated
+			 */
+			for (float prices : quoteList) {
+				sum += prices;
+			}
+
+			/*
+			 * The average is then calculated after the for loop has got the sum
+			 */
+			longMA = sum / quoteList.size();
+			// if (spread < 6) {
+			// System.err.println(symbol + " SMA = " + movingAvg);
+			quoteList.poll();
+
+			pullTrigger = true;
+		}
+
+		return longMA;
+	}
+
+	private void queryMA(double shortMA, double longMA) throws SQLException {
+
+		Connection cn = DatabaseUtils.setupDB();
+		Statement st = null;
+		ResultSet rs = null;
+		try {
+			// Join product hnd eproduct_cateogry where category = parameter
+			// passed in
+			// issue with quote.volume
+			String query = "insert into movingAvg(sma, lma) values ('"
+					+ shortMA + "','" + longMA + "')";
+			DatabaseUtils.executeUpdate(cn, query);
+			System.out.println("MA STORED!!");
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (st != null)
+				st.close();
+			if (cn != null)
+				cn.close();
+		}
 	}
 
 	/*
@@ -181,28 +235,33 @@ public class TMA implements MarketDataHandler, Runnable {
 		double sellPriceSize = 0;
 		int buy = -1;
 		int sell = 1;
+		double profitLoss = 0;
 		if (shortMA >= longMA) {
 			System.out.println("Time to buy");
 			OrderManager.getInstance().buyOrder(entry.getKey(),
 					quote.getBidPrice(), quote.getBidSize());
-			buyPriceSize = queryDB(entry, quote, dealer, buy,
+			buyPriceSize = queryTrades(entry, quote, dealer, buy,
 					quote.getBidPrice(), quote.getBidSize());
 			buyTotal += buyPriceSize;
 			buyCount++;
 
-		} else {
+		} else if( shortMA <= longMA){
 			System.out.println("Time to sell");
 			OrderManager.getInstance().sellOrder(entry.getKey(),
 					quote.getAskPrice(), quote.getBidSize());
-			sellPriceSize = queryDB(entry, quote, dealer, sell,
+			sellPriceSize = queryTrades(entry, quote, dealer, sell,
 					quote.getAskPrice(), quote.getAskSize());
 			sellTotal += sellPriceSize;
 			sellCount++;
 
 		}
-		// Problems start here
+		// Calculate Profit/Loss
+		profitLoss = sellTotal - buyTotal;
+
+		if(buyTotal != 0 && sellTotal !=0){
 		exitCondition(buyTotal, sellTotal, quote, entry, buyPriceSize,
 				sellPriceSize);
+		}
 	}
 
 	/**
@@ -258,7 +317,7 @@ public class TMA implements MarketDataHandler, Runnable {
 		}
 	}
 
-	private float queryDB(Map.Entry<String, Quote> entry, Quote quote,
+	private float queryTrades(Map.Entry<String, Quote> entry, Quote quote,
 			String dealer, int type, float price, float size)
 			throws SQLException { // }
 		Connection cn = DatabaseUtils.setupDB();
