@@ -58,13 +58,18 @@ public class GetData {
 						quote.setBidPrice(Float.parseFloat(fields[3]));
 						quote.setClosePrice(Float.parseFloat(fields[6]));
 						quote.setVolume(Integer.parseInt(fields[7]));
-						quote.setAskSize((1000 * Integer.parseInt(fields[1]) + Integer.parseInt(fields[2])));
-						quote.setBidSize((1000 * Integer.parseInt(fields[4]) + Integer.parseInt(fields[5])));
+						quote.setAskSize((1000 * Integer.parseInt(fields[1]) + Integer
+								.parseInt(fields[2])));
+						quote.setBidSize((1000 * Integer.parseInt(fields[4]) + Integer
+								.parseInt(fields[5])));
 
 					}
 					// Insert quote with stock as key
-					quotes.put(stocks.toArray(new String[stocks.size()])[i],
-							quote);
+					if (stocks.size() > 0) {
+						quotes.put(
+								stocks.toArray(new String[stocks.size()])[i],
+								quote);
+					}
 				} catch (NumberFormatException e) {
 				}
 

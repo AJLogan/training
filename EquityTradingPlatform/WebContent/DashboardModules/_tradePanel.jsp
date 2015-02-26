@@ -22,9 +22,8 @@
 				<%
 					Connection tradePanelCN = DatabaseUtils.setupDB();
 					try {
-						String newTicker = "AAPL";
 						TradeQueries tq = new TradeQueries();
-						ResultSet rs = tq.getByTicker(tradePanelCN, newTicker);
+						ResultSet rs = tq.getStocksBeingWatched(tradePanelCN, md.symbols);
 						while (rs.next()) {
 							out.println("<tr>");
 							out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"

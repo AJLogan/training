@@ -25,9 +25,6 @@ $(document).ready(function() {
 
 				askPrice = value['askPrice'];
 				bidPrice = value['bidPrice'];
-
-				var element = document.getElementById("test");
-				element.innerHTML = askPrice;
 			});
 		}
 	});
@@ -60,7 +57,7 @@ $(document).ready(
 												var x = (new Date()).getTime(), // current
 												// time
 												y = askPrice;
-												// y = bidprice;
+
 												series.addPoint([ x, y ], true,
 														true);
 											}, 1000);
@@ -85,6 +82,9 @@ $(document).ready(
 									} ]
 								},
 								tooltip : {
+
+									crosshairs : [ true, true ],
+
 									formatter : function() {
 										return '<b>'
 												+ this.series.name
@@ -98,7 +98,7 @@ $(document).ready(
 									}
 								},
 								legend : {
-									enabled : false
+									enabled : true
 								},
 								exporting : {
 									enabled : false
@@ -119,5 +119,15 @@ $(document).ready(
 										return data;
 									}())
 								} ]
+//								,
+//								series : [ {
+//									name : 'Bid Price',
+//									data : (function() {
+//										// generate an array of random data
+//										var data2 = [];
+//										data2.push(bidPrice);
+//										return data2;
+//									}())
+//								} ]
 							});
 		});

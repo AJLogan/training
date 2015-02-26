@@ -53,7 +53,7 @@
 				<!-- /.row -->
 
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-8">
 						<%@include file="/DashboardModules/_quoteGraph.jsp"%>
 					</div>
 					<%-- <div class="col-lg-6">
