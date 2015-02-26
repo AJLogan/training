@@ -24,24 +24,26 @@ public class TradeQueries {
 
 	public ResultSet getStocksBeingWatched(Connection cn, Vector<String> stocks)
 			throws SQLException {
+		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
 		String prefix = "";
-		if (stocks.size() > 1) {
-			int i = 0;
-			for (i = 0; i < stocks.size(); i++) {
-				sb.append(prefix);
-				prefix = ",";
-				sb.append("'" + stocks.get(i) + "'");
+		if (stocks.isEmpty() != true) {
+			if (stocks.size() > 1) {
+				int i = 0;
+				for (i = 0; i < stocks.size(); i++) {
+					sb.append(prefix);
+					prefix = ",";
+					sb.append("'" + stocks.get(i) + "'");
+				}
+			} else {
+				for (int i = 0; i < stocks.size(); i++) {
+					sb.append("'" + stocks.get(i) + "'");
+				}
 			}
-		} else {
-			for (int i = 0; i < stocks.size(); i++) {
-				sb.append("'" + stocks.get(i) + "'");
-			}
+			query = "select id, ticker, volume, price, dealer from EquityTrading.trades where ticker in ("
+					+ sb + ");";
+			rs = DatabaseUtils.executeQuery(cn, query);
 		}
-		query = "select id, ticker, volume, price, dealer from EquityTrading.trades where ticker in ("
-				+ sb + ") group by ticker;";
-		System.out.println(query);
-		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
 		return rs;
 	}
 

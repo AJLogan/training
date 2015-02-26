@@ -9,9 +9,7 @@
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive">
-
 			<table class="table table-bordered table-hover table-striped">
-
 				<tr>
 					<th>Order #</th>
 					<th>Ticker</th>
@@ -43,10 +41,6 @@
 					}
 				%>
 			</table>
-		</div>
-		<div class="text-right">
-			<a href="#">View All Transactions <i
-				class="fa fa-arrow-circle-right"></i></a>
 		</div>
 	</div>
 </div>

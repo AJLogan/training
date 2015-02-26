@@ -65,14 +65,12 @@ public class GetData {
 
 					}
 					// Insert quote with stock as key
-					if (stocks.size() > 0) {
-						quotes.put(
-								stocks.toArray(new String[stocks.size()])[i],
-								quote);
+					if (!stocks.isEmpty()) {
+						quotes.put(stocks.toArray(new String[stocks.size()])[i],quote);
 					}
 				} catch (NumberFormatException e) {
+					e.printStackTrace();
 				}
-
 			}
 			i++;
 		}

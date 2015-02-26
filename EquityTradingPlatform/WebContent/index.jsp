@@ -37,11 +37,8 @@
 
 				<!-- Page Heading -->
 				<div class="row">
-					<div class="col-lg-6">
+					<div class="col-lg-12">
 						<%@include file="/DashboardModules/_pageHeader.jsp"%>
-					</div>
-					<div class="col-lg-6">
-						<%-- <%@include file="/DashboardModules/_newsFeed.jsp"%> --%>
 					</div>
 				</div>
 				<div class="row">
@@ -55,22 +52,11 @@
 				<div class="row">
 					<div class="col-lg-8">
 						<%@include file="/DashboardModules/_quoteGraph.jsp"%>
+						<%@include file="/DashboardModules/_tradePanel.jsp"%>
 					</div>
-					<%-- <div class="col-lg-6">
-						<%@include file="/DashboardModules/_summary.jsp"%>
-					</div> --%>
-				</div>
-				<!-- /.row -->
-
-				<div class="row">
-					<div>
-						<div class="col-lg-8">
-							<%@include file="/DashboardModules/_tradePanel.jsp"%>
-						</div>
-						<div class="col-lg-4">
-							<%@include file="/DashboardModules/_mangeStrategies.jsp"%>
-							<%@include file="/DashboardModules/_manualTrader.jsp"%>
-						</div>
+					<div class="col-lg-4">
+						<%@include file="/DashboardModules/_manualTrader.jsp"%>
+						<%@include file="/DashboardModules/_newsFeed.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->

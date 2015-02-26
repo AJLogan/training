@@ -10,7 +10,8 @@ import com.awesome.dataAccess.DatabaseUtils;
 import com.awesome.model.Quote;
 
 public class FetchData {
-	public static ArrayList<Quote> getGraphData(Vector<String> stocks, int offset) {
+	public static ArrayList<Quote> getGraphData(Vector<String> stocks,
+			int offset) {
 		ArrayList<Quote> dataList = new ArrayList<Quote>();
 		ResultSet rs = null;
 		StringBuilder sb = new StringBuilder();
@@ -28,28 +29,31 @@ public class FetchData {
 			}
 		}
 		int size = stocks.size();
-		String query = "SELECT askPrice, askSize, bidPrice, bidSize, volume from quotes  where ticker in (" + sb + ") limit " + size + " offset " + offset + ";";
+		String query = "SELECT askPrice, askSize, bidPrice, bidSize, volume from quotes  where ticker in ("
+				+ sb + ") limit " + size + " offset " + offset + ";";
 		Connection cn = DatabaseUtils.setupDB();
-		try {
-			rs = DatabaseUtils.executeQuery(cn, query);
-			while (rs.next()) {
-				Quote data = new Quote();
-				data.setAskPrice(rs.getFloat("askPrice"));
-				data.setAskSize(rs.getInt("askSize"));
-				data.setBidPrice(rs.getFloat("bidPrice"));
-				data.setBidSize(rs.getInt("bidSize"));
-				data.setVolume(rs.getInt("volume"));
-				dataList.add(data);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (cn != null)
-				try {
-					cn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+		if (!stocks.isEmpty()) {
+			try {
+				rs = DatabaseUtils.executeQuery(cn, query);
+				while (rs.next()) {
+					Quote data = new Quote();
+					data.setAskPrice(rs.getFloat("askPrice"));
+					data.setAskSize(rs.getInt("askSize"));
+					data.setBidPrice(rs.getFloat("bidPrice"));
+					data.setBidSize(rs.getInt("bidSize"));
+					data.setVolume(rs.getInt("volume"));
+					dataList.add(data);
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (cn != null)
+					try {
+						cn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
 		}
 		return dataList;
 	}

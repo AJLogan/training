@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.awesome.feeds.MarketDataConsumer;
+import com.awesome.strategies.ManualTrader;
 import com.awesome.strategies.PBO;
 import com.awesome.strategies.TMA;
 
@@ -20,6 +21,9 @@ import com.awesome.strategies.TMA;
 public class Startup implements ServletContextListener {
 	ExecutorService executor = null;
 	private MarketDataConsumer app = new MarketDataConsumer();
+	private TMA twoPoint = new TMA();
+	private PBO breakout = new PBO();
+	private ManualTrader mt = new ManualTrader();
 
 	/**
 	 * Default constructor.
@@ -43,20 +47,20 @@ public class Startup implements ServletContextListener {
 		executor.execute(app);
 		ServletContext ctx = arg0.getServletContext();
 		// Startup strategies
-		TMA twoPoint = new TMA();
-		PBO breakout = new PBO();
 		executor.execute(twoPoint);
 		executor.execute(breakout);
-
-		app.addSymbol("BARC.L");
+		executor.execute(mt);
+		ctx.setAttribute("app", app);
+		ctx.setAttribute("pbo", breakout);
+		ctx.setAttribute("tma", twoPoint);
+		ctx.setAttribute("ManualTrader", mt);
+		 app.addSymbol("BARC.L");
+		// app.addSymbol("YHOO");
 		// app.addSymbol("AAPL");
-		//app.addHandler("AAPL", twoPoint);
+		// app.addHandler("AAPL", twoPoint);
 		// app.addHandler("YHOO", twoPoint);
 		// app.addHandler("AAPL", breakout);
 		// app.addHandler("YHOO", breakout);
-		ctx.setAttribute("app", app);
-		System.out.println(app.symbols);
-		System.out.println(app.handlerMap.toString());
 	}
 
 }

@@ -31,7 +31,7 @@ public class MarketDataConsumer implements Runnable {
 	}
 
 	public void removeSymbol(String symbol) {
-		if (symbols.size() != 0) {
+		if (!symbols.isEmpty()) {
 			symbols.remove(symbols.indexOf(symbol));
 		} else
 			return;
@@ -56,29 +56,33 @@ public class MarketDataConsumer implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			try {
-				Map<String, Quote> data = handler.getQuote(symbols);
-				for (Map.Entry<String, Quote> value : data.entrySet()) {
-					Quote quote = value.getValue();
-					// THIS DOESNT CONTAIN ANYTHING YET!!!
-					if (handlerMap.containsKey(value.getKey())) {
-						MarketDataHandler strategy = handlerMap.get(symbols);
-						strategy = handlerMap.get(value.getKey());
-						System.out.println(strategy);
-						strategy.onMarketDataUpdate(symbols,
-								quote.getBidPrice(), quote.getBidSize(),
-								quote.getAskPrice(), quote.getAskSize());
+			if (!symbols.isEmpty()) {
+				try {
+
+					Map<String, Quote> data = handler.getQuote(symbols);
+					for (Map.Entry<String, Quote> value : data.entrySet()) {
+						Quote quote = value.getValue();
+						// THIS DOESNT CONTAIN ANYTHING YET!!!
+						if (handlerMap.containsKey(value.getKey())) {
+							MarketDataHandler strategy = handlerMap
+									.get(symbols);
+							strategy = handlerMap.get(value.getKey());
+							System.out.println(strategy);
+							strategy.onMarketDataUpdate(symbols,
+									quote.getBidPrice(), quote.getBidSize(),
+									quote.getAskPrice(), quote.getAskSize());
+						}
 					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

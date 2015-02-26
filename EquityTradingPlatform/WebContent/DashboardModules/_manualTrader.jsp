@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.awesome.feeds.*" import="java.sql.*"
 	import="java.util.*"%>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">
 			<span class="glyphicon glyphicon-transfer"></span> Manual Trader
