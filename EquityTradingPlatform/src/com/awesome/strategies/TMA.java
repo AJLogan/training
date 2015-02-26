@@ -89,7 +89,7 @@ public class TMA implements MarketDataHandler, Runnable {
 					shortThread.start();
 					longThread.start();
 					// hardcode the dealer
-					String dealer = "Two Point Moving Average";
+					String dealer = "TMA";
 					if (shortMA != 0) {
 						queryMA(shortMA, longMA);
 					}

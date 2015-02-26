@@ -79,12 +79,7 @@ $(document).ready(
 							crosshairs : [ true, true ],
 
 							formatter : function() {
-								return '<b>'
-										+ this.series.name
-										+ '</b><br/>'
-										+ Highcharts.dateFormat(
-												'%Y-%m-%d %H:%M:%S', this.x)
-										+ '<br/>'
+								return '<b>' + this.series.name + '<br/>'
 										+ Highcharts.numberFormat(this.y, 2);
 							}
 						},

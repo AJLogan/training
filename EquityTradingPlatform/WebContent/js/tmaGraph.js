@@ -1,12 +1,12 @@
-var askPrice;
-var bidPrice;
+var sma;
+var lma;
 
-function getData() {
-	$.get('PopulateGraph', function(responseJson) {
+function getTMAData() {
+	$.get('PopulateTMAGraph', function(responseJson) {
 		if (responseJson != null) {
 			$.each(responseJson, function(key, value) {
-				askPrice = value['askPrice'];
-				bidPrice = value['bidPrice'];
+				sma = value['sma'];
+				lma = value['lma'];
 			});
 		}
 	});
@@ -36,11 +36,11 @@ $(document).ready(
 									var series2 = this.series[1];
 
 									setInterval(function() {
-										getData();
+										getTMAData();
 										var x = (new Date()).getTime(), // current
 										// time
-										y = askPrice;
-										z = bidPrice;
+										y = sma;
+										z = lma;
 										series.addPoint([ x, y ], false, true);
 										series2.addPoint([ x, z ], true, true);
 									}, 500);
@@ -49,7 +49,7 @@ $(document).ready(
 							}
 						},
 						title : {
-							text : 'Quote Data'
+							text : 'Two Moving Averages'
 						},
 						xAxis : {
 							type : 'datetime',
@@ -62,7 +62,7 @@ $(document).ready(
 							plotLines : [ {
 								value : 0,
 								width : 1,
-								color : '#808080'
+								color : '#d9534f'
 							} ]
 						}, {
 							title : {
@@ -71,20 +71,12 @@ $(document).ready(
 							plotLines : [ {
 								value : 0,
 								width : 1,
-								color : '#808080'
+								color : '#5cb85c'
 							} ]
 						} ],
 						tooltip : {
-
-							crosshairs : [ true, true ],
-
 							formatter : function() {
-								return '<b>'
-										+ this.series.name
-										+ '</b><br/>'
-										+ Highcharts.dateFormat(
-												'%Y-%m-%d %H:%M:%S', this.x)
-										+ '<br/>'
+								return '<b>' + this.series.name + '<br/>'
 										+ Highcharts.numberFormat(this.y, 2);
 							}
 						},
@@ -96,7 +88,7 @@ $(document).ready(
 						},
 						series : [
 								{
-									name : 'Ask Price',
+									name : 'SMA',
 									data : (function() {
 										// generate an array of random data
 										var data = [], time = (new Date())
@@ -105,14 +97,14 @@ $(document).ready(
 										for (i = -19; i <= 0; i += 1) {
 											data.push({
 												x : time + i * 1000,
-												y : askPrice
+												y : sma
 											});
 										}
 										return data;
 									}())
 								},
 								{
-									name : 'Bid Price',
+									name : 'LMA',
 									data : (function() {
 										var data = [], time = (new Date())
 												.getTime(), i;
@@ -120,8 +112,7 @@ $(document).ready(
 										for (i = -19; i <= 0; i += 1) {
 											data.push({
 												x : time + i * 1000,
-
-												y : bidPrice
+												y : lma
 											});
 										}
 										return data;

@@ -12,8 +12,8 @@
 			<table class="table table-bordered table-hover table-striped">
 				<tr>
 					<th>Ticker</th>
-					<th>Volume</th>
-					<th>Price</th>
+					<th>Size</th>
+					<th>Total Cost</th>
 					<th>P&L</th>
 					<th>Dealer</th>
 				</tr>
