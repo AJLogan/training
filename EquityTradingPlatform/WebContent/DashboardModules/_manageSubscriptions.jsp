@@ -29,7 +29,6 @@
 				</thead>
 				<tbody>
 					<%
-						ServletContext ctx = getServletContext();
 						MarketDataConsumer md = (MarketDataConsumer) ctx
 								.getAttribute("app");
 						for (int i = 0; i < md.symbols.size(); i++) {

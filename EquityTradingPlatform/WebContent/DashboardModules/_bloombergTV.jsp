@@ -1,12 +1,14 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title"><span class="glyphicon glyphicon glyphicon glyphicon-film"></span> Bloomberg TV</h3>
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon glyphicon glyphicon-film"></span>
+			Bloomberg TV
+		</h3>
 	</div>
 	<div class="panel-body">
-		 <div class="video-embed">
+		<div class="video-embed">
 			<div id="bbg-video-player-US"
-				class="video-js vjs-default-skin vjs-playing"
-				style="width: 300px; height: 150px;">
+				class="video-js vjs-default-skin vjs-playing" style="height: 150px;">
 				<object type="application/x-shockwave-flash"
 					data="http://cdn.gotraffic.net/projector/v0.7.101/BloombergPlayer.swf"
 					width="100%" height="100%" id="US_flash_api" name="US_flash_api"
@@ -173,6 +175,6 @@
 					</div>
 				</div>
 			</div>
-		</div> 
+		</div>
 	</div>
 </div>

@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Vector;
 
+import javax.servlet.ServletContext;
+
 import com.awesome.dataAccess.DatabaseUtils;
 import com.awesome.dataAccess.GetData;
 import com.awesome.feeds.MarketDataHandler;
@@ -36,6 +38,7 @@ public class TMA implements MarketDataHandler, Runnable {
 	private int buyCount = 0;
 	private  Queue<Float> squoteList = new LinkedList<Float>();
 	private  Queue<Float> lsquoteList = new LinkedList<Float>();
+	private double profitLoss;
 
 	/**
 	 * Acts as the main method for the class so to speak
@@ -86,7 +89,7 @@ public class TMA implements MarketDataHandler, Runnable {
 					shortThread.start();
 					longThread.start();
 					// hardcode the dealer
-					String dealer = "james";
+					String dealer = "Two Point Moving Average";
 					if (shortMA != 0) {
 						queryMA(shortMA, longMA);
 					}
@@ -235,7 +238,6 @@ public class TMA implements MarketDataHandler, Runnable {
 		double sellPriceSize = 0;
 		int buy = -1;
 		int sell = 1;
-		double profitLoss = 0;
 		if (shortMA >= longMA) {
 			System.out.println("Time to buy");
 			OrderManager.getInstance().buyOrder(entry.getKey(),
@@ -257,7 +259,7 @@ public class TMA implements MarketDataHandler, Runnable {
 		}
 		// Calculate Profit/Loss
 		profitLoss = sellTotal - buyTotal;
-
+		
 		if(buyTotal != 0 && sellTotal !=0){
 		exitCondition(buyTotal, sellTotal, quote, entry, buyPriceSize,
 				sellPriceSize);
@@ -330,7 +332,7 @@ public class TMA implements MarketDataHandler, Runnable {
 			String query = "insert into trades(ticker, volume, price, dealer, profit_loss) values ('"
 					+ entry.getKey()
 					+ "','"
-					+ size
+					+ size*type
 					+ "','"
 					+ quote.getAskPrice()
 					+ "','"
@@ -359,5 +361,12 @@ public class TMA implements MarketDataHandler, Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * @return the profitLoss
+	 */
+	public double getProfitLoss() {
+		return profitLoss;
 	}
 }

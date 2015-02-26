@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
 	import="com.awesome.*" import="com.awesome.dataAccess.*"%>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">
 			<i class="fa fa-money fa-fa"></i> Trades
@@ -11,24 +11,25 @@
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover table-striped">
 				<tr>
-					<th>Order #</th>
 					<th>Ticker</th>
 					<th>Volume</th>
 					<th>Price</th>
+					<th>P&L</th>
 					<th>Dealer</th>
 				</tr>
 				<%
 					Connection tradePanelCN = DatabaseUtils.setupDB();
 					try {
 						TradeQueries tq = new TradeQueries();
-						ResultSet rs = tq.getStocksBeingWatched(tradePanelCN, md.symbols);
+						ResultSet rs = tq.getStocksBeingWatched(tradePanelCN,
+								md.symbols);
 						while (rs.next()) {
 							out.println("<tr>");
-							out.print("<td>" + rs.getInt("id") + "</td>" + "<td>"
-									+ rs.getString("ticker") + "</td>" + "<td>"
-									+ rs.getInt("volume") + "</td>" + "<td>"
-									+ rs.getFloat("price") + "</td>" + "<td>"
-									+ rs.getString("dealer") + "</td>");
+							out.print("<td>" + rs.getString("t") + "</td>"
+									+ "<td>" + rs.getInt("v") + "</td>" + "<td>"
+									+ rs.getFloat("p") + "</td>" + "<td>"
+									+ rs.getString("pl") + "</td>" + "<td>"
+									+ rs.getString("d") + "</td>");
 							out.println("</tr>");
 						}// while
 					} catch (SQLException e) {

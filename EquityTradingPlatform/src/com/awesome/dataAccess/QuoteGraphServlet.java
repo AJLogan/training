@@ -77,7 +77,6 @@ public class QuoteGraphServlet extends HttpServlet {
 		ct.setAttribute("start", start);
 		String query = "select ticker, askPrice from EquityTrading.quotes limit 1000 offset "
 				+ start;
-//		System.out.println(query);
 		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
 		return rs;
 	}

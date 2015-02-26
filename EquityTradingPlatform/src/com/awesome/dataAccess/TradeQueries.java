@@ -40,8 +40,9 @@ public class TradeQueries {
 					sb.append("'" + stocks.get(i) + "'");
 				}
 			}
-			query = "select id, ticker, volume, price, dealer from EquityTrading.trades where ticker in ("
-					+ sb + ");";
+
+			query = "select ticker as t, sum(volume) as v, sum(price) as p, sum(profit_loss) as pl , dealer as d from trades where ticker in ("
+					+ sb + ") group by ticker;";
 			rs = DatabaseUtils.executeQuery(cn, query);
 		}
 		return rs;

@@ -3,11 +3,11 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			<span class="glyphicon glyphicon glyphicon-stats"></span> Quote Prices from Yahoo!
+			<span class="glyphicon glyphicon glyphicon-stats"></span> Two Moving Averages
 		</h3>
 	</div>
 	<div class="panel-body">
-		<div id="quoteGraph"
+		<div id="tmaGraph"
 			style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 	</div>
 </div>

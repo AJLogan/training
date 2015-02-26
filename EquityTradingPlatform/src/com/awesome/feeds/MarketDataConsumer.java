@@ -58,16 +58,13 @@ public class MarketDataConsumer implements Runnable {
 		while (true) {
 			if (!symbols.isEmpty()) {
 				try {
-
 					Map<String, Quote> data = handler.getQuote(symbols);
 					for (Map.Entry<String, Quote> value : data.entrySet()) {
 						Quote quote = value.getValue();
-						// THIS DOESNT CONTAIN ANYTHING YET!!!
 						if (handlerMap.containsKey(value.getKey())) {
 							MarketDataHandler strategy = handlerMap
 									.get(symbols);
 							strategy = handlerMap.get(value.getKey());
-							System.out.println(strategy);
 							strategy.onMarketDataUpdate(symbols,
 									quote.getBidPrice(), quote.getBidSize(),
 									quote.getAskPrice(), quote.getAskSize());

@@ -23,5 +23,8 @@
 <script src="js/plugins/highcharts/highcharts.js"></script>
 <script src="js/plugins/highcharts/exporting.js"></script>
 
+<!-- Dynamic Elements -->
 <script src="js/quoteGraph.js"></script>
+<script src="js/tmaGraph.js"></script>
 <script src="js/tradesTable.js"></script>
+<script src="js/profitLoss.js"></script>

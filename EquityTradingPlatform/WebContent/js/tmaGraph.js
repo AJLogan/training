@@ -20,7 +20,7 @@ $(document).ready(
 				}
 			});
 
-			$('#quoteGraph').highcharts(
+			$('#tmaGraph').highcharts(
 					{
 						chart : {
 							type : 'line',
