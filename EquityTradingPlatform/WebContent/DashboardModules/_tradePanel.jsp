@@ -14,9 +14,9 @@
 
 				<tr>
 					<th>Order #</th>
-					<th>Order Date</th>
-					<th>Order Time</th>
-					<th>Amount (USD)</th>
+					<th>Ticker</th>
+					<th>Volume</th>
+					<th>Price</th>
 					<th>Dealer</th>
 				</tr>
 				<%
