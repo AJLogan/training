@@ -33,6 +33,18 @@ public class QuotesQueries {
 		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
 		return rs;
 	}// getTicker
+	
+	public ResultSet getAskPrice(Connection cn, String ticker) throws SQLException {
+		query = "select askPrice from EquityTrading.quotes where ticker = '" + ticker + "' limit 1";
+		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
+		return rs;
+	}// getTicker
+	
+	public ResultSet getBidPrice(Connection cn, String ticker) throws SQLException {
+		query = "select bidPrice from EquityTrading.quotes where ticker = '" + ticker + "' limit 1";
+		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
+		return rs;
+	}// getTicker
 
 	public ResultSet quoteChartQuery(Connection cn) throws SQLException {
 		query = "select ticker as label, askPrice as price from EquityTrading.quotes";

@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import com.awesome.orderManager.OrderManager;
+
 public class TradeQueries {
 	private String query;
 
@@ -20,6 +22,28 @@ public class TradeQueries {
 				+ inTicker + "'";
 		ResultSet rs = DatabaseUtils.executeQuery(cn, query);
 		return rs;
+	}
+	
+	public void insertManualTradeBuy(Connection cn, String inTicker, String vola, String pricea)
+			throws SQLException {
+		int vol = Integer.parseInt(vola);
+		double price = Double.parseDouble(pricea);
+		OrderManager.getInstance().buyOrder(inTicker,price, vol);
+		query = "insert into EquityTrading.trades(ticker, volume, price, dealer, profit_loss) values"
+				+ "('"+inTicker+"'," + (vol * 1) + "," + price +",'Manual'," + (vol * price) + ")";
+		System.out.println(query);
+		DatabaseUtils.executeUpdate(cn, query);
+	}
+	
+	public void insertManualTradeSell(Connection cn, String inTicker, String vola, String pricea)
+			throws SQLException {
+		int vol = Integer.parseInt(vola);
+		double price = Double.parseDouble(pricea);
+		OrderManager.getInstance().sellOrder(inTicker,price, vol);
+		query = "insert into EquityTrading.trades(ticker, volume, price, dealer, profit_loss) values"
+				+ "('"+inTicker+"'," + (vol * -1) + "," + price + ",'Manual'," + (vol * price) + ")";
+		System.out.println(query);
+		DatabaseUtils.executeUpdate(cn, query);
 	}
 
 	public ResultSet getStocksBeingWatched(Connection cn, Vector<String> stocks)
@@ -40,9 +64,8 @@ public class TradeQueries {
 					sb.append("'" + stocks.get(i) + "'");
 				}
 			}
-
-			query = "select ticker as t, sum(volume) as v, sum(price) as p, sum(profit_loss) as pl , dealer as d from trades where ticker in ("
-					+ sb + ") group by ticker;";
+			query = "select id, ticker, volume, price, dealer from EquityTrading.trades where ticker in ("
+					+ sb + ");";
 			rs = DatabaseUtils.executeQuery(cn, query);
 		}
 		return rs;

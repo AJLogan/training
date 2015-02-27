@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.awesome.feeds.*" import="java.sql.*"
+	import="com.awesome.*" import="com.awesome.graphing.*"
+	import="java.util.*" import="com.awesome.dataAccess.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="shortcut icon" href="favicon.ico" />
 <%@include file="/DashboardModules/_head.jsp"%>
 </head>
 <body>
 	<%
+	
 		if (request.getParameter("symbol") != null) {
 			session.setAttribute("sym", request.getParameter("symbol"));
 			ServletContext ctx = getServletContext();
@@ -20,9 +22,13 @@
 			ServletContext ctx = getServletContext();
 			MarketDataConsumer md = (MarketDataConsumer) ctx
 					.getAttribute("app");
-			md.removeSymbol(request.getParameter("sym"));
-
+			if(md.symbols.size()>1)
+			{
+				md.removeSymbol(request.getParameter("sym"));
+			}
 		}
+		//NEW CODE
+		
 	%>
 	<div id="wrapper">
 		<%@include file="/DashboardModules/_navigation.jsp"%>
@@ -38,11 +44,8 @@
 
 				<!-- Page Heading -->
 				<div class="row">
-					<div class="col-lg-9">
+					<div class="col-lg-12">
 						<%@include file="/DashboardModules/_pageHeader.jsp"%>
-					</div>
-					<div class="col-lg-3">
-						<%@include file="/DashboardModules/_bloombergTV.jsp"%>
 					</div>
 				</div>
 				<div class="row">
@@ -56,18 +59,11 @@
 				<div class="row">
 					<div class="col-lg-8">
 						<%@include file="/DashboardModules/_quoteGraph.jsp"%>
-						<%@include file="/DashboardModules/_tmaGraph.jsp"%>
-					</div>
-					<div class="col-lg-4">
-						<%@include file="/DashboardModules/_newsFeed.jsp"%>
-						<%@include file="/DashboardModules/_manualTrader.jsp"%>
 						<%@include file="/DashboardModules/_tradePanel.jsp"%>
 					</div>
-				</div>
-				<!-- /.row -->
-				<div class="row">
-					<div class="col-lg-12">
-						<%-- <%@include file="/DashboardModules/_tradePanel.jsp"%> --%>
+					<div class="col-lg-4">
+						<%@include file="/DashboardModules/_manualTrader.jsp"%>
+						<%@include file="/DashboardModules/_newsFeed.jsp"%>
 					</div>
 				</div>
 				<!-- /.row -->
