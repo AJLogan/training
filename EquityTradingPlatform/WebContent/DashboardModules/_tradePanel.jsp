@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*" import="java.sql.*"
-	import="com.awesome.*" import="com.awesome.dataAccess.*"%>
+	import="com.awesome.*" import="com.awesome.dataAccess.*" import="com.awesome.feeds.*"%>
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">
@@ -20,9 +20,8 @@
 				<%
 					Connection tradePanelCN = DatabaseUtils.setupDB();
 					try {
-						TradeQueries tq = new TradeQueries();
-						ResultSet rs = tq.getStocksBeingWatched(tradePanelCN,
-								md.symbols);
+						TradeQueries tq = new TradeQueries();				
+						ResultSet rs = tq.getStocksBeingWatched(tradePanelCN, md.symbols);
 						while (rs.next()) {
 							out.println("<tr>");
 							out.print("<td>" + rs.getString("t") + "</td>"

@@ -44,8 +44,11 @@
 
 				<!-- Page Heading -->
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-8">
 						<%@include file="/DashboardModules/_pageHeader.jsp"%>
+					</div>
+					<div class="col-lg-4">
+						<%@include file="/DashboardModules/_bloombergTV.jsp"%>
 					</div>
 				</div>
 				<div class="row">
@@ -59,10 +62,11 @@
 				<div class="row">
 					<div class="col-lg-8">
 						<%@include file="/DashboardModules/_quoteGraph.jsp"%>
-						<%@include file="/DashboardModules/_tradePanel.jsp"%>
+						<%@include file="/DashboardModules/_tmaGraph.jsp"%>
 					</div>
 					<div class="col-lg-4">
 						<%@include file="/DashboardModules/_manualTrader.jsp"%>
+						<%@include file="/DashboardModules/_tradePanel.jsp"%>
 						<%@include file="/DashboardModules/_newsFeed.jsp"%>
 					</div>
 				</div>

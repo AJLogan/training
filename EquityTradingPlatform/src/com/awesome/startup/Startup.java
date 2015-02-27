@@ -54,13 +54,12 @@ public class Startup implements ServletContextListener {
 		ctx.setAttribute("pbo", breakout);
 		ctx.setAttribute("tma", twoPoint);
 		ctx.setAttribute("ManualTrader", mt);
-		 app.addSymbol("AAPL");
+		app.addSymbol("AAPL");
 		// app.addSymbol("YHOO");
 		// app.addSymbol("AAPL");
-		 app.addHandler("AAPL", twoPoint);
+		app.addHandler("AAPL", twoPoint);
 		// app.addHandler("YHOO", twoPoint);
 		// app.addHandler("AAPL", breakout);
 		// app.addHandler("YHOO", breakout);
 	}
-
 }
