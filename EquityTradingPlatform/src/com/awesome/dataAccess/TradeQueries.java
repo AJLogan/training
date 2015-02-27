@@ -66,6 +66,7 @@ public class TradeQueries {
 			}
 			query = "select id, ticker as t, sum(volume) as v, sum(price) as p, sum(profit_loss) as pl, dealer as d from EquityTrading.trades where ticker in ("
 					+ sb + ") group by t, d;";
+			
 			rs = DatabaseUtils.executeQuery(cn, query);
 		}
 		return rs;
