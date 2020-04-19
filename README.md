@@ -1,2 +1,2 @@
 # EquityTrading
-Citi Acadamy Project
+Grad Project
